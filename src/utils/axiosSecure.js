@@ -1,7 +1,7 @@
 import axios from "axios";
-import axiosPublic from "../utils/axiosPublic";
+import axiosPublic from "./axiosPublic";
 
-const apiConfig = axios.create({
+const axiosSecure = axios.create({
   baseURL: "http://localhost:3000/api/v1",
   withCredentials: true,
 });
@@ -20,7 +20,7 @@ const processQueue = (error) => {
 };
 
 // Request interceptor
-apiConfig.interceptors.request.use(
+axiosSecure.interceptors.request.use(
   function (config) {
     return config;
   },
@@ -30,7 +30,7 @@ apiConfig.interceptors.request.use(
 );
 
 // Response interceptor
-apiConfig.interceptors.response.use(
+axiosSecure.interceptors.response.use(
   (res) => res,
   async (error) => {
     const originalRequest = error.config;
@@ -47,7 +47,7 @@ apiConfig.interceptors.response.use(
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
-        }).then(() => apiConfig(originalRequest));
+        }).then(() => axiosSecure(originalRequest));
       }
 
       isRefreshing = true;
@@ -56,7 +56,7 @@ apiConfig.interceptors.response.use(
       try {
         await axiosPublic.post("/auth/refresh-access-token");
         processQueue(null);
-        return apiConfig(originalRequest);
+        return axiosSecure(originalRequest);
       } catch (err) {
         processQueue(err);
         // TODO: logout user
@@ -70,6 +70,4 @@ apiConfig.interceptors.response.use(
   }
 );
 
-const useAxiosSecure = () => apiConfig;
-
-export default useAxiosSecure;
+export default axiosSecure;
