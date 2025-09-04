@@ -20,6 +20,7 @@ import Seat from "../pages/Movie/Seat";
 import Movie from "../pages/Movie/Movie";
 import PaymentSuccess from "../pages/Booking/PaymentSuccess";
 import TicketDetails from "../pages/Booking/TicketDetails";
+import Favorite from "../pages/User/Favorite";
 
 const router = createBrowserRouter([
   {
@@ -34,10 +35,7 @@ const router = createBrowserRouter([
         path: "contact",
         element: <Contact />,
       },
-      {
-        path: "login",
-        element: <Login />,
-      },
+
       {
         path: "register",
         element: <Register />,
@@ -47,6 +45,10 @@ const router = createBrowserRouter([
         element: <Movies />,
       },
     ],
+  },
+  {
+    path: "login",
+    element: <Login />,
   },
   {
     path: "checkout",
@@ -111,6 +113,10 @@ const router = createBrowserRouter([
       {
         path: "booking/:id",
         element: <BookingDetails />,
+      },
+      {
+        path: "favorite",
+        element: <Favorite />,
       },
     ],
   },

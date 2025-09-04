@@ -4,16 +4,26 @@
 @theme {
   --color-primary: #1de782;
   --color-primary-light: #bdf0c1;
+  --color-dark: #020700;
   --color-text-dark: #101012;
   --color-text-muted: #5a5a5d;
   --color-border: #dddedf;
   --color-accent: #17c769;
   --color-inactive: #a1d9be;
   --color-disabled: #d5e5f0;
+
+  --font-poppins: "Poppins", "sans-serif";
 }
 
 @layer base {
   * {
     font-family: "Poppins", sans-serif;
+    color: white;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply bg-primary text-white font-medium text-lg py-2 px-6 rounded-lg inline-block;
   }
 }
