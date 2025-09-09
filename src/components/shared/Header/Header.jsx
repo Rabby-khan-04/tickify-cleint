@@ -6,7 +6,18 @@ import { useState } from "react";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [dropDown, setDropDown] = useState(false);
   const user = true;
+
+  const toggleMenuAndDropdown = () => {
+    setIsOpen((prev) => !prev);
+    setDropDown(false);
+  };
+
+  const closeMenuAndDropdown = () => {
+    setIsOpen(false);
+    setDropDown(false);
+  };
 
   const navLink = (
     <>
@@ -16,7 +27,7 @@ const Header = () => {
             `inline-block px-3 ${isActive && "text-primary"}`
           }
           to="/"
-          onClick={() => setIsOpen(false)}
+          onClick={closeMenuAndDropdown}
         >
           Home
         </NavLink>
@@ -28,7 +39,7 @@ const Header = () => {
             `inline-block px-3 ${isActive && "text-primary"}`
           }
           to="/movies"
-          onClick={() => setIsOpen(false)}
+          onClick={closeMenuAndDropdown}
         >
           Movies
         </NavLink>
@@ -40,7 +51,7 @@ const Header = () => {
             `inline-block px-3 ${isActive && "text-primary"}`
           }
           to="/contact"
-          onClick={() => setIsOpen(false)}
+          onClick={closeMenuAndDropdown}
         >
           contact
         </NavLink>
@@ -63,24 +74,25 @@ const Header = () => {
           }`}
         >
           <XIcon
-            className="h-6 w-6 absolute top-6 right-6 cursor-pointer md:hidden"
+            className="h-6 w-6 absolute top-6 right-6 cursor-pointer md:hidden text-white"
             onClick={() => setIsOpen((prev) => !prev)}
           />
-          <ul className="flex max-md:flex-col items-center justify-center text-2xl max-md:space-y-4 md:text-lg font-medium [&>li>a]:hover:text-primary [&>li>a]:transition-all [&>li>a]:duration-150 ">
+          <ul className="text-white flex max-md:flex-col items-center justify-center text-2xl max-md:space-y-4 md:text-lg font-medium [&>li>a]:hover:text-primary [&>li>a]:transition-all [&>li>a]:duration-150 ">
             {navLink}
           </ul>
         </div>
 
-        <div className="flex-1 flex items-center justify-end">
+        <div className="flex-1 flex items-center justify-end gap-4">
           {user ? (
             <>
               <Link
                 to="/dashboard/favorite"
-                className="mr-5 lg:mr-8 inline-block border border-border/80 p-2 rounded-full"
+                className="inline-block border border-border/80 p-2 rounded-full"
               >
-                <Heart className="h-4 w-4 md:h-6 md:w-6" />
+                <Heart className="h-5 w-5 text-white" />
               </Link>
-              <ProfileDropdown />
+              <div className="h-5 w-px bg-white/70"></div>
+              <ProfileDropdown dropDown={dropDown} setDropDown={setDropDown} />
             </>
           ) : (
             <Link to="/login" className="btn">
@@ -89,8 +101,8 @@ const Header = () => {
           )}
 
           <LucideMenu
-            className="md:hidden h-7 w-7 cursor-pointer"
-            onClick={() => setIsOpen((prev) => !prev)}
+            className="md:hidden h-7 w-7 cursor-pointer text-white"
+            onClick={toggleMenuAndDropdown}
           />
         </div>
       </nav>
