@@ -60,7 +60,7 @@ const Header = () => {
   );
 
   return (
-    <header className="py-5 px-8">
+    <header className="py-5 px-8 fixed top-0 left-0 right-0 bg-transparent z-50">
       <nav className="flex justify-between items-center">
         <div className="flex-1 ">
           <Link to="/">

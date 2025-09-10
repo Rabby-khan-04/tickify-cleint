@@ -1,8 +1,14 @@
+import { Outlet } from "react-router";
+import Header from "../components/shared/Header/Header";
+import Footer from "../components/shared/Footer/Footer";
+
 const DashboardLayout = () => {
   return (
-    <div>
-      <h1>This is DashboardLayout component</h1>
-    </div>
+    <>
+      <Header />
+      <Outlet />
+      <Footer />
+    </>
   );
 };
 

@@ -32,7 +32,7 @@ const ProfileDropdown = ({ dropDown, setDropDown }) => {
       </div>
 
       <div
-        className={`absolute top-[130%] max-md:right-[-150%] md:right-0 bg-white w-72 md:w-80 rounded-2xl py-4 px-5 ${
+        className={`absolute z-50 top-[130%] max-md:right-[-150%] md:right-0 bg-white w-72 md:w-80 rounded-2xl py-4 px-5 ${
           dropDown
             ? "pointer-events-auto opacity-100"
             : "pointer-events-none opacity-0"
