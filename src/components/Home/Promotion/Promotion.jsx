@@ -7,7 +7,7 @@ import { RiEmotionUnhappyFill } from "react-icons/ri";
 
 const Promotion = () => {
   return (
-    <section className="p-top">
+    <section className="p-top pb-8">
       <div className="container-fluid grid grid-cols-1 lg:grid-cols-6 gap-8">
         <div className="lg:col-span-4 p-6 rounded-xl bg-secondary flex max-sm:flex-col items-center ">
           <div className="grow">
