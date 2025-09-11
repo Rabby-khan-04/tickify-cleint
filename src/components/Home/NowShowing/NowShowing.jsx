@@ -1,0 +1,83 @@
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/grid";
+import { Autoplay, Grid } from "swiper/modules";
+import MovieCard from "../../shared/Movie/MovieCard";
+import { fetchNowPlaying } from "../../../utils/fetchShows";
+import { useQuery } from "@tanstack/react-query";
+import FeatureCard from "./FeatureCard";
+import { useState } from "react";
+import SliderNav from "../Banner/SliderNav";
+
+const NowShowing = () => {
+  const [swiperRef, setSwiperRef] = useState(null);
+  const { data: nowPlayingMovies, isLoading: movieLoading } = useQuery({
+    queryKey: ["now-playing"],
+    queryFn: fetchNowPlaying,
+  });
+
+  if (movieLoading) return <h1>Loading</h1>;
+
+  return (
+    <section className="pt-32">
+      <div className="container-fluid">
+        <div className="relative">
+          <h2 className="text-[clamp(2rem,3vw,2rem)] text-white font-medium mb-5">
+            Now Showing
+          </h2>
+          <SliderNav swiper={swiperRef} className="top-0 right-0" />
+        </div>
+
+        <div className="flex flex-col-reverse sm:grid sm:grid-cols-2 md:grid-cols-7 gap-[30px]">
+          <div className="md:col-span-3 xl:col-span-2">
+            <FeatureCard movie={nowPlayingMovies[0]} />
+          </div>
+          <div className="md:col-span-4 xl:col-span-5">
+            <Swiper
+              onSwiper={setSwiperRef}
+              grid={{
+                rows: 2,
+                fill: "row",
+              }}
+              spaceBetween={30}
+              pagination={{
+                clickable: true,
+              }}
+              autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+              }}
+              modules={[Grid, Autoplay]}
+              className="mySwiper"
+              breakpoints={{
+                0: {
+                  slidesPerView: 1,
+                  slidesPerGroup: 1,
+                  grid: { rows: 1 },
+                },
+                1024: {
+                  slidesPerView: 1.5,
+                  slidesPerGroup: 1,
+                  grid: { rows: 2 },
+                },
+                1280: {
+                  slidesPerView: 2.5,
+                  slidesPerGroup: 2,
+                  grid: { rows: 2 },
+                },
+              }}
+            >
+              {nowPlayingMovies?.slice(1)?.map((movie) => (
+                <SwiperSlide key={movie.id}>
+                  <MovieCard movie={movie} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default NowShowing;

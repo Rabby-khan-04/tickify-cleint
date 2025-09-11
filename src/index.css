@@ -22,8 +22,8 @@
 }
 
 @layer components {
-  .container {
-    @apply px-[5%];
+  .container-fluid {
+    @apply px-[5%] max-w-full w-full;
   }
   .btn {
     @apply bg-primary text-white font-medium text-lg py-2 px-6 rounded-lg inline-block;
@@ -34,7 +34,17 @@
   .btn-ghost {
     @apply text-white font-medium text-base md:text-lg py-2 md:py-3 px-5 md:px-6 rounded-full inline-flex items-center gap-1 bg-transparent w-auto border border-white;
   }
+  .btn-gradient-sm {
+    @apply text-white font-medium text-sm md:text-base py-1 md:py-2 px-3 md:px-4 rounded-full inline-flex items-center gap-1 bg-gradient-to-r from-primary via-primary to-primary-light w-auto border border-transparent;
+  }
+  .btn-ghost-sm {
+    @apply text-white font-medium  text-sm md:text-base py-1 md:py-2 px-3 md:px-4 rounded-full inline-flex items-center gap-1 bg-transparent w-auto border border-white;
+  }
   .swiper-pagination-bullet-active {
     @apply bg-primary;
+  }
+
+  .movie-badge {
+    @apply border border-primary inline-block w-auto absolute top-6 right-6 text-sm py-1 px-3 rounded-full bg-primary/40 backdrop-blur text-primary font-bold;
   }
 }

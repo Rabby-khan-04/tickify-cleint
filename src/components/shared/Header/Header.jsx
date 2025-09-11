@@ -2,12 +2,25 @@ import { Link, NavLink } from "react-router";
 import logo from "../../../assets/brand/logo.png";
 import ProfileDropdown from "./ProfileDropdown";
 import { Heart, LucideMenu, XIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Header = () => {
+  const [scrolling, setScrolling] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [dropDown, setDropDown] = useState(false);
   const user = true;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolling(window.scrollY >= 92);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
 
   const toggleMenuAndDropdown = () => {
     setIsOpen((prev) => !prev);
@@ -60,7 +73,11 @@ const Header = () => {
   );
 
   return (
-    <header className="py-5 px-8 fixed top-0 left-0 right-0 bg-transparent z-50">
+    <header
+      className={`py-5 px-8 fixed top-0 left-0 right-0 z-50 transition-all duration-150 ${
+        scrolling ? "bg-dark" : "bg-transparent"
+      }`}
+    >
       <nav className="flex justify-between items-center">
         <div className="flex-1 ">
           <Link to="/">

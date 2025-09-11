@@ -22,7 +22,7 @@ const BannerSlide = ({ movie }) => {
         }${backdrop_path})`,
       }}
     >
-      <div className="container flex items-center gap-12">
+      <div className="container-fluid flex items-center gap-12">
         <div className="w-auto shrink-0 hidden md:block">
           <img
             src={import.meta.env.VITE_TMDB_PATH + poster_path}

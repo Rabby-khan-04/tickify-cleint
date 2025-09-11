@@ -1,8 +1,8 @@
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa6";
 
-const SliderNav = ({ swiper }) => {
+const SliderNav = ({ swiper, className }) => {
   return (
-    <div className="absolute bottom-4 right-20 lg:bottom-20 z-30 flex items-center gap-3">
+    <div className={`absolute z-30 flex items-center gap-3 ${className}`}>
       <button
         onClick={() => swiper.slidePrev()}
         className="text-white p-2 bg-white/20 rounded-lg cursor-pointer inline-block hover:bg-primary/20 hover:text-primary transition-all duration-150"
