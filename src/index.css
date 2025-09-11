@@ -3,6 +3,7 @@
 
 @theme {
   --color-primary: #1de782;
+  --color-secondary: #8f5fab;
   --color-primary-light: #bdf0c1;
   --color-dark: #020700;
   --color-text-dark: #101012;
@@ -26,19 +27,19 @@
     @apply px-[5%] max-w-full w-full;
   }
   .btn {
-    @apply bg-primary text-white font-medium text-lg py-2 px-6 rounded-lg inline-block;
+    @apply bg-primary text-white font-medium text-lg py-2 px-6 rounded-lg inline-block cursor-pointer;
   }
   .btn-gradient {
-    @apply text-white font-medium text-base md:text-lg py-2 md:py-3 px-5 md:px-6 rounded-full inline-flex items-center gap-1 bg-gradient-to-r from-primary via-primary to-primary-light w-auto border border-transparent;
+    @apply text-white font-medium text-base md:text-lg py-2 md:py-3 px-5 md:px-6 rounded-full inline-flex items-center gap-1 bg-gradient-to-r from-primary via-primary to-primary-light w-auto border border-transparent cursor-pointer;
   }
   .btn-ghost {
-    @apply text-white font-medium text-base md:text-lg py-2 md:py-3 px-5 md:px-6 rounded-full inline-flex items-center gap-1 bg-transparent w-auto border border-white;
+    @apply text-white font-medium text-base md:text-lg py-2 md:py-3 px-5 md:px-6 rounded-full inline-flex items-center gap-1 bg-transparent w-auto border border-white cursor-pointer;
   }
   .btn-gradient-sm {
-    @apply text-white font-medium text-sm md:text-base py-1 md:py-2 px-3 md:px-4 rounded-full inline-flex items-center gap-1 bg-gradient-to-r from-primary via-primary to-primary-light w-auto border border-transparent;
+    @apply text-white font-medium text-sm py-1 md:py-2 px-3 md:px-4 rounded-full inline-flex items-center gap-1 bg-gradient-to-r from-primary via-primary to-primary-light w-auto border border-transparent cursor-pointer;
   }
   .btn-ghost-sm {
-    @apply text-white font-medium  text-sm md:text-base py-1 md:py-2 px-3 md:px-4 rounded-full inline-flex items-center gap-1 bg-transparent w-auto border border-white;
+    @apply text-white font-medium  text-sm py-1 md:py-2 px-3 md:px-4 rounded-full inline-flex items-center gap-1 bg-transparent w-auto border border-white cursor-pointer;
   }
   .swiper-pagination-bullet-active {
     @apply bg-primary;
@@ -46,5 +47,8 @@
 
   .movie-badge {
     @apply border border-primary inline-block w-auto absolute top-6 right-6 text-sm py-1 px-3 rounded-full bg-primary/40 backdrop-blur text-primary font-bold;
+  }
+  .p-top {
+    @apply pt-16 md:pt-20 lg:pt-32;
   }
 }

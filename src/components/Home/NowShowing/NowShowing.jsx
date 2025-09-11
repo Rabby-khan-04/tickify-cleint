@@ -19,7 +19,7 @@ const NowShowing = () => {
   if (movieLoading) return <h1>Loading</h1>;
 
   return (
-    <section className="pt-32">
+    <section className="p-top">
       <div className="container-fluid">
         <div className="relative">
           <h2 className="text-[clamp(2rem,3vw,2rem)] text-white font-medium mb-5">
