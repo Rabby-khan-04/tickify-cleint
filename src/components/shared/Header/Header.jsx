@@ -104,11 +104,11 @@ const Header = () => {
             <>
               <Link
                 to="/dashboard/favorite"
-                className="inline-block border border-border/80 p-2 rounded-full"
+                className="inline-block border border-border/80 p-2 rounded-full max-md:hidden"
               >
                 <Heart className="h-5 w-5 text-white" />
               </Link>
-              <div className="h-5 w-px bg-white/70"></div>
+              <div className="h-5 w-px bg-white/70 max-md:hidden"></div>
               <ProfileDropdown dropDown={dropDown} setDropDown={setDropDown} />
             </>
           ) : (

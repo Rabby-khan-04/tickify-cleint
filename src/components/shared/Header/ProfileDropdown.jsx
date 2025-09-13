@@ -1,4 +1,4 @@
-import { ChevronDown, LogOut, Settings, Ticket } from "lucide-react";
+import { ChevronDown, Heart, LogOut, Settings, Ticket } from "lucide-react";
 import avatar from "../../../assets/icon/profile.png";
 import PropTypes from "prop-types";
 import { Link } from "react-router";
@@ -60,12 +60,20 @@ const ProfileDropdown = ({ dropDown, setDropDown }) => {
             <span>Profile</span>
           </Link>
           <Link
-            to="/dashboard/bookings"
+            to="/bookings"
             className="flex items-center gap-4 text-text-muted text-sm py-2"
             onClick={() => setDropDown(false)}
           >
             <Ticket className="w-4 h-4" />
             <span>Bookings</span>
+          </Link>
+          <Link
+            to="/favorite"
+            className="md:hidden flex items-center gap-4 text-text-muted text-sm py-2"
+            onClick={() => setDropDown(false)}
+          >
+            <Heart className="w-4 h-4" />
+            <span>Favorite</span>
           </Link>
           <div className="flex items-center gap-4 text-text-muted text-sm py-2">
             <LogOut className="w-4 h-4" />

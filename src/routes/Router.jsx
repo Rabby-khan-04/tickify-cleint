@@ -44,6 +44,18 @@ const router = createBrowserRouter([
         path: "movies",
         element: <Movies />,
       },
+      {
+        path: "bookings",
+        element: <Bookings />,
+      },
+      {
+        path: "booking/:id",
+        element: <BookingDetails />,
+      },
+      {
+        path: "favorite",
+        element: <Favorite />,
+      },
     ],
   },
   {
@@ -105,18 +117,6 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <Profile />,
-      },
-      {
-        path: "bookings",
-        element: <Bookings />,
-      },
-      {
-        path: "booking/:id",
-        element: <BookingDetails />,
-      },
-      {
-        path: "favorite",
-        element: <Favorite />,
       },
     ],
   },
