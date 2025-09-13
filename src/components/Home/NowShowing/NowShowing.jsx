@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import FeatureCard from "./FeatureCard";
 import { useState } from "react";
 import SliderNav from "../Banner/SliderNav";
+import SectionTitle from "../../shared/SectionTitle/SectionTitle";
 
 const NowShowing = () => {
   const [swiperRef, setSwiperRef] = useState(null);
@@ -22,9 +23,7 @@ const NowShowing = () => {
     <section className="p-top">
       <div className="container-fluid">
         <div className="relative">
-          <h2 className="text-[clamp(2rem,3vw,2rem)] text-white font-medium mb-5">
-            Now Showing
-          </h2>
+          <SectionTitle title="Now Showing" />
           <SliderNav swiper={swiperRef} className="top-0 right-0" />
         </div>
 

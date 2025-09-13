@@ -7,6 +7,7 @@ import "swiper/css";
 import "swiper/css/grid";
 import MovieCard from "../../shared/Movie/MovieCard";
 import SliderNav from "../Banner/SliderNav";
+import SectionTitle from "../../shared/SectionTitle/SectionTitle";
 
 const UpcomingMovies = () => {
   const [swiperRef, setSwiperRef] = useState(null);
@@ -20,9 +21,7 @@ const UpcomingMovies = () => {
     <section className="p-top">
       <div className="container-fluid">
         <div className="relative">
-          <h2 className="text-[clamp(2rem,3vw,2rem)] text-white font-medium mb-5">
-            Coming Soon
-          </h2>
+          <SectionTitle title="Coming Soon" />
           <SliderNav swiper={swiperRef} className="top-0 right-0" />
         </div>
 

@@ -1,8 +1,14 @@
+import NowShowingMovies from "../../components/Movies/NowShowingMovies";
+import UpcomingShows from "../../components/Movies/UpcomingShows";
+import TitleBanner from "../../components/shared/TitleBanner/TitleBanner";
+
 const Movies = () => {
   return (
-    <div>
-      <h1>This is Movies component</h1>
-    </div>
+    <main>
+      <TitleBanner title="Movies" />
+      <NowShowingMovies />
+      <UpcomingShows />
+    </main>
   );
 };
 
