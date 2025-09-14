@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import SectionTitle from "../shared/SectionTitle/SectionTitle";
 import { fetchNowPlaying } from "../../utils/fetchShows";
 import ShowCard from "../shared/Movie/ShowCard";
+import Spinner from "../shared/Loader/Spinner";
 
 const NowShowingMovies = () => {
   const { data: nowPlayingMovies, isLoading: movieLoading } = useQuery({
@@ -9,12 +10,12 @@ const NowShowingMovies = () => {
     queryFn: fetchNowPlaying,
   });
 
-  if (movieLoading) return <h1>Loading</h1>;
+  if (movieLoading) return <Spinner />;
 
   return (
     <section className="p-top">
       <div className="container-fluid">
-        <SectionTitle title="Now Showing" className="text-center" />
+        <SectionTitle title="Now Showing" className="text-center text-white" />
 
         <div className="flex items-center justify-center flex-wrap gap-8 mt-4">
           {nowPlayingMovies.map((movie) => (

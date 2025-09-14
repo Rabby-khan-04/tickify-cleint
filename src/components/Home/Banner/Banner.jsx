@@ -8,6 +8,7 @@ import BannerSlide from "./BannerSlide";
 import SliderNav from "./SliderNav";
 import { useState } from "react";
 import { fetchNowPlaying } from "../../../utils/fetchShows";
+import Spinner from "../../shared/Loader/Spinner";
 
 const Banner = () => {
   const [swiperRef, setSwiperRef] = useState(null);
@@ -16,7 +17,7 @@ const Banner = () => {
     queryFn: fetchNowPlaying,
   });
 
-  if (movieLoading) return <h1>Loading</h1>;
+  if (movieLoading) return <Spinner />;
   return (
     <section className="relative">
       <Swiper

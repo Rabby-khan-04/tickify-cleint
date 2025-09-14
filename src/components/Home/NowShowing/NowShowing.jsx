@@ -10,6 +10,7 @@ import { useState } from "react";
 import SliderNav from "../Banner/SliderNav";
 import SectionTitle from "../../shared/SectionTitle/SectionTitle";
 import BlurCircle from "../../shared/BlurCircle/BlurlCircle";
+import Spinner from "../../shared/Loader/Spinner";
 
 const NowShowing = () => {
   const [swiperRef, setSwiperRef] = useState(null);
@@ -18,7 +19,7 @@ const NowShowing = () => {
     queryFn: fetchNowPlaying,
   });
 
-  if (movieLoading) return <h1>Loading</h1>;
+  if (movieLoading) return <Spinner />;
 
   return (
     <section className="p-top relative z-30">

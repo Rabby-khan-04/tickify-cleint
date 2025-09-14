@@ -24,6 +24,7 @@ import Favorite from "../pages/User/Favorite";
 import Root from "../layout/Root";
 import Loader from "../components/shared/Loader/Loader";
 import PrivateRouter from "./PrivateRouter";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -110,49 +111,49 @@ const router = createBrowserRouter([
       {
         path: "admin",
         element: (
-          <PrivateRouter>
+          <AdminRoute>
             <Dashboard />
-          </PrivateRouter>
+          </AdminRoute>
         ),
       },
       {
         path: "admin/add-show",
         element: (
-          <PrivateRouter>
+          <AdminRoute>
             <AddShowtime />
-          </PrivateRouter>
+          </AdminRoute>
         ),
       },
       {
         path: "admin/bookings",
         element: (
-          <PrivateRouter>
+          <AdminRoute>
             <AllBookings />
-          </PrivateRouter>
+          </AdminRoute>
         ),
       },
       {
         path: "admin/manage-movies",
         element: (
-          <PrivateRouter>
+          <AdminRoute>
             <ManageMovies />
-          </PrivateRouter>
+          </AdminRoute>
         ),
       },
       {
         path: "admin/shows",
         element: (
-          <PrivateRouter>
+          <AdminRoute>
             <ManageShowtimes />
-          </PrivateRouter>
+          </AdminRoute>
         ),
       },
       {
         path: "admin/users",
         element: (
-          <PrivateRouter>
+          <AdminRoute>
             <Users />
-          </PrivateRouter>
+          </AdminRoute>
         ),
       },
       {

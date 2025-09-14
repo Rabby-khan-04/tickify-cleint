@@ -9,6 +9,7 @@ import MovieCard from "../../shared/Movie/MovieCard";
 import SliderNav from "../Banner/SliderNav";
 import SectionTitle from "../../shared/SectionTitle/SectionTitle";
 import BlurCircle from "../../shared/BlurCircle/BlurlCircle";
+import Spinner from "../../shared/Loader/Spinner";
 
 const UpcomingMovies = () => {
   const [swiperRef, setSwiperRef] = useState(null);
@@ -17,7 +18,7 @@ const UpcomingMovies = () => {
     queryFn: fetchUpcomingMovies,
   });
 
-  if (movieLoading) return <h1>Loading</h1>;
+  if (movieLoading) return <Spinner />;
   return (
     <section className="p-top relative">
       <BlurCircle bottom="0" left="-200px" />
