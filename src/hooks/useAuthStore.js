@@ -3,6 +3,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import { create } from "zustand";
 import auth from "../firebase/firebase.config";
@@ -30,7 +31,7 @@ const useAuthStore = create((set) => ({
           .get("/users/me")
           .then((res) => {
             if (res?.data?.data) {
-              set({ userInfo: res?.data?.dat });
+              set({ userInfo: res?.data?.data });
             }
           })
           .catch((err) => {
@@ -47,13 +48,17 @@ const useAuthStore = create((set) => ({
   },
 
   registerUser: (email, password) => {
-    set({ isAuthLoading: false });
+    set({ isAuthLoading: true });
 
     return createUserWithEmailAndPassword(auth, email, password);
   },
 
+  updateUserInfo(info) {
+    return updateProfile(auth.currentUser, info);
+  },
+
   loginUser: (email, password) => {
-    set({ isAuthLoading: false });
+    set({ isAuthLoading: true });
 
     return signInWithEmailAndPassword(auth, email, password);
   },

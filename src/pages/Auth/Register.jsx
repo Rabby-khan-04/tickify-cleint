@@ -5,17 +5,46 @@ import { useForm } from "react-hook-form";
 import SectionTitle from "../../components/shared/SectionTitle/SectionTitle";
 import { Eye, EyeOff } from "lucide-react";
 import { Link } from "react-router";
+import useAuthStore from "../../hooks/useAuthStore";
+import toast from "react-hot-toast";
+import axiosPublic from "../../utils/axiosPublic";
 
 const Register = () => {
   const [toggle, setToggle] = useState(false);
+  const { registerUser, updateUserInfo, authUser } = useAuthStore();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  console.log(authUser);
   const onSubmit = (data) => {
     const { name, photo, email, password } = data;
+
+    registerUser(email, password)
+      .then(() => {
+        updateUserInfo({ displayName: name, photoURL: photo })
+          .then(() => {
+            axiosPublic
+              .post("/auth/register", { email, name, photo })
+              .then((res) => {
+                if (res.data?.data) {
+                  toast.success("🎉 Account created successfully! ");
+                }
+              })
+              .catch((err) => {
+                console.error(`Register ERROR: ${err}`);
+              });
+          })
+          .catch((error) => {
+            console.error(`Update profile ERROR: ${error}`);
+            toast.error(error.message || "Registration Faild!");
+          });
+      })
+      .catch((error) => {
+        console.error(`Register ERROR: ${error}`);
+        toast.error(error.message || "Registration Faild!");
+      });
   };
 
   return (
@@ -140,7 +169,7 @@ const Register = () => {
               value="Create Account"
             />
           </form>
-          <div className="text-center mt-4 md:mt-6">
+          <div className="text-center myt-4 md:my-6">
             <p className="text-text-muted text-sm">
               Already Have An Account?{" "}
               <Link className="text-primary" to="/login">

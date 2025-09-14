@@ -21,11 +21,16 @@ import Movie from "../pages/Movie/Movie";
 import PaymentSuccess from "../pages/Booking/PaymentSuccess";
 import TicketDetails from "../pages/Booking/TicketDetails";
 import Favorite from "../pages/User/Favorite";
+import Root from "../layout/Root";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Main />,
+    element: (
+      <Root>
+        <Main />
+      </Root>
+    ),
     children: [
       {
         index: true,
@@ -87,7 +92,11 @@ const router = createBrowserRouter([
 
   {
     path: "dashboard",
-    element: <DashboardLayout />,
+    element: (
+      <Root>
+        <DashboardLayout />
+      </Root>
+    ),
     children: [
       {
         path: "admin",
