@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import SectionTitle from "../../components/shared/SectionTitle/SectionTitle";
 import { Eye, EyeOff } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import useAuthStore from "../../hooks/useAuthStore";
 import toast from "react-hot-toast";
 import axiosPublic from "../../utils/axiosPublic";
@@ -12,6 +12,9 @@ import axiosPublic from "../../utils/axiosPublic";
 const Register = () => {
   const [toggle, setToggle] = useState(false);
   const { registerUser, updateUserInfo, authUser } = useAuthStore();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from || "/";
   const {
     register,
     handleSubmit,
@@ -30,6 +33,7 @@ const Register = () => {
               .then((res) => {
                 if (res.data?.data) {
                   toast.success("🎉 Account created successfully! ");
+                  navigate(from);
                 }
               })
               .catch((err) => {

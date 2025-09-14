@@ -2,11 +2,17 @@ import { useState } from "react";
 import SectionTitle from "../../components/shared/SectionTitle/SectionTitle";
 import { useForm } from "react-hook-form";
 import { Eye, EyeOff } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import BlurCircle from "../../components/shared/BlurCircle/BlurlCircle";
+import useAuthStore from "../../hooks/useAuthStore";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [toggle, setToggle] = useState(false);
+  const { loginUser } = useAuthStore();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location?.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
@@ -15,6 +21,16 @@ const Login = () => {
 
   const onSubmit = (data) => {
     const { email, password } = data;
+
+    loginUser(email, password)
+      .then(() => {
+        toast.success("Successfully logged in!");
+        navigate(from, { replace: true });
+      })
+      .catch((err) => {
+        console.log(`Login in ERROR: ${err}`);
+        toast.error(err.message || "Login failed. Please try again.");
+      });
   };
 
   return (
@@ -88,7 +104,7 @@ const Login = () => {
           <div className="text-center mt-4 md:mt-6">
             <p className="text-text-muted text-sm">
               Don't Have An Account?{" "}
-              <Link className="text-primary" to="/register">
+              <Link className="text-primary" to="/register" state={{ from }}>
                 Register Here!!
               </Link>
             </p>

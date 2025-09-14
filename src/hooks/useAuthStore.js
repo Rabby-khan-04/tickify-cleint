@@ -15,6 +15,8 @@ const useAuthStore = create((set) => ({
   authUser: null,
   isAuthLoading: true,
   userInfo: null,
+  isUserInfoLoading: true,
+  isAdmin: false,
 
   initializeAuthUser: () => {
     set({ isAuthLoading: true });
@@ -23,24 +25,23 @@ const useAuthStore = create((set) => ({
       if (user) {
         set({ authUser: user });
 
-        axiosPublic.post("/auth/jwt", { email: user.email }).finally(() => {
-          set({ isAuthLoading: false });
+        axiosPublic.post("/auth/jwt", { email: user.email }).then(() => {
+          axiosSecure
+            .get("/users/me")
+            .then((res) => {
+              if (res?.data?.data) {
+                set({ userInfo: res?.data?.data });
+                set({ isAdmin: res?.data?.data?.role === "admin" });
+                set({ isUserInfoLoading: false });
+                set({ isAuthLoading: false });
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         });
-
-        axiosSecure
-          .get("/users/me")
-          .then((res) => {
-            if (res?.data?.data) {
-              set({ userInfo: res?.data?.data });
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-
-        toast.success("Successfully logged in!!");
       } else {
-        set({ authUser: null, isAuthLoading: false });
+        set({ authUser: null, isAuthLoading: false, isUserInfoLoading: false });
       }
     });
 
@@ -64,6 +65,7 @@ const useAuthStore = create((set) => ({
   },
 
   logOutUser: () => {
+    set({ authUser: null, userInfo: null });
     signOut(auth).then(() => {
       axiosPublic
         .post("/auth/logout")

@@ -2,8 +2,15 @@ import { ChevronDown, Heart, LogOut, Settings, Ticket } from "lucide-react";
 import avatar from "../../../assets/icon/profile.png";
 import PropTypes from "prop-types";
 import { Link } from "react-router";
+import useAuthStore from "../../../hooks/useAuthStore";
 
 const ProfileDropdown = ({ dropDown, setDropDown }) => {
+  const { authUser, logOutUser } = useAuthStore();
+
+  const handleLogout = () => {
+    logOutUser();
+  };
+
   return (
     <div className="relative">
       <div
@@ -11,15 +18,15 @@ const ProfileDropdown = ({ dropDown, setDropDown }) => {
         className="flex items-center justify-end cursor-pointer gap-2"
       >
         <img
-          src={avatar}
+          src={authUser?.photoURL || avatar}
           className="size-8 rounded-full object-cover object-center"
           alt=""
         />
 
         <div className="max-lg:hidden space-y-1">
           <h4 className="text-sm text-white/80">Hi, Welcome</h4>
-          <p className="text-sm lg:text-lg font-medium text-white">
-            Albert Edison
+          <p className="text-sm lg:text-lg font-medium text-white truncate w-28">
+            {authUser?.displayName || "Albert Edison"}
           </p>
         </div>
         <div className="max-lg:hidden">
@@ -40,13 +47,17 @@ const ProfileDropdown = ({ dropDown, setDropDown }) => {
       >
         <div className="flex items-center gap-5 pb-5">
           <img
-            src={avatar}
+            src={authUser?.photoURL || avatar}
             className="size-10 rounded-full object-cover object-center"
             alt=""
           />
           <div className="text-sm">
-            <p className="font-medium text-dark">Albert Edison</p>
-            <h4 className="text-text-dark">abcd@gmail.com</h4>
+            <p className="font-medium text-dark">
+              {authUser?.displayName || "Albert Edison"}
+            </p>
+            <h4 className="text-text-dark">
+              {authUser?.email || "abcd@gmail.com"}
+            </h4>
           </div>
         </div>
 
@@ -75,7 +86,10 @@ const ProfileDropdown = ({ dropDown, setDropDown }) => {
             <Heart className="w-4 h-4" />
             <span>Favorite</span>
           </Link>
-          <div className="flex items-center gap-4 text-text-muted text-sm py-2">
+          <div
+            onClick={handleLogout}
+            className="flex items-center gap-4 text-text-muted text-sm py-2 cursor-pointer"
+          >
             <LogOut className="w-4 h-4" />
             <span>Sign out</span>
           </div>

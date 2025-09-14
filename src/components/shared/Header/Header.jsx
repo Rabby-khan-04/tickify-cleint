@@ -3,12 +3,13 @@ import logo from "../../../assets/brand/logo.png";
 import ProfileDropdown from "./ProfileDropdown";
 import { Heart, LucideMenu, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
+import useAuthStore from "../../../hooks/useAuthStore";
 
 const Header = () => {
   const [scrolling, setScrolling] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [dropDown, setDropDown] = useState(false);
-  const user = false;
+  const { authUser } = useAuthStore();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -100,7 +101,7 @@ const Header = () => {
         </div>
 
         <div className="flex-1 flex items-center justify-end gap-4">
-          {user ? (
+          {authUser ? (
             <>
               <Link
                 to="/dashboard/favorite"

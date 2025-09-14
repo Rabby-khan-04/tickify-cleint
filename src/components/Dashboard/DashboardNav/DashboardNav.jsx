@@ -8,9 +8,12 @@ import {
   Videotape,
   SquareUser,
   TicketCheck,
+  LogOut,
 } from "lucide-react";
+import useAuthStore from "../../../hooks/useAuthStore";
 
 const DashboardNav = () => {
+  const { userInfo, isAdmin, logOutUser } = useAuthStore();
   const adminNavLinks = [
     {
       path: "/dashboard/admin",
@@ -45,30 +48,43 @@ const DashboardNav = () => {
   ];
 
   return (
-    <aside className="max-w-13 md:max-w-60 w-full h-[calc(100vh-65px)] md:h-[calc(100vh-73px)] shrink-0 border-r border-primary-light/20 pt-8">
-      <div className="text-center space-y-2">
-        <img
-          src={avatar}
-          className="sh-9 md:h-14 w-9 md:w-14 rounded-full mx-auto object-cover"
-          alt=""
-        />
-        <p className="text-sm lg:text-lg font-medium text-white">
-          Albert Edison
-        </p>
+    <aside className="max-w-13 md:max-w-60 w-full h-[calc(100vh-65px)] md:h-[calc(100vh-73px)] shrink-0 border-r border-primary-light/20 pt-8 flex flex-col justify-between">
+      <div>
+        <div className="text-center space-y-2">
+          <img
+            src={userInfo?.photo || avatar}
+            className="sh-9 md:h-14 w-9 md:w-14 rounded-full mx-auto object-cover"
+            alt=""
+          />
+          <p className="text-sm lg:text-lg font-medium text-white">
+            {userInfo?.name || "Albert Edison"}
+          </p>
+        </div>
+
+        <div className="mt-6">
+          <DashboardNavLink
+            key="/dashboard/profile"
+            items={{
+              path: "/dashboard/profile",
+              text: "Profile",
+              ICON: Settings,
+            }}
+          />
+          {isAdmin &&
+            adminNavLinks.map((items) => (
+              <DashboardNavLink key={items.path} items={items} />
+            ))}
+        </div>
       </div>
 
-      <div className="mt-6">
-        <DashboardNavLink
-          key="/dashboard/profile"
-          items={{
-            path: "/dashboard/profile",
-            text: "Profile",
-            ICON: Settings,
-          }}
-        />
-        {adminNavLinks.map((items) => (
-          <DashboardNavLink key={items.path} items={items} />
-        ))}
+      <div className="border-t border-primary-light/20">
+        <div
+          onClick={logOutUser}
+          className="flex items-center md:pl-10 text-gray-400 gap-2 max-md:justify-center py-2.5 cursor-pointer"
+        >
+          <LogOut className="w-4 h-4" />
+          <span>Sign out</span>
+        </div>
       </div>
     </aside>
   );

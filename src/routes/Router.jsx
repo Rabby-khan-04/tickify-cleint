@@ -22,6 +22,8 @@ import PaymentSuccess from "../pages/Booking/PaymentSuccess";
 import TicketDetails from "../pages/Booking/TicketDetails";
 import Favorite from "../pages/User/Favorite";
 import Root from "../layout/Root";
+import Loader from "../components/shared/Loader/Loader";
+import PrivateRouter from "./PrivateRouter";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +60,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+
   {
     path: "register",
     element: <Register />,
@@ -87,44 +90,78 @@ const router = createBrowserRouter([
 
   {
     path: "ticket",
-    element: <TicketDetails />,
+    element: (
+      <PrivateRouter>
+        <TicketDetails />
+      </PrivateRouter>
+    ),
   },
 
   {
     path: "dashboard",
     element: (
       <Root>
-        <DashboardLayout />
+        <PrivateRouter>
+          <DashboardLayout />
+        </PrivateRouter>
       </Root>
     ),
     children: [
       {
         path: "admin",
-        element: <Dashboard />,
+        element: (
+          <PrivateRouter>
+            <Dashboard />
+          </PrivateRouter>
+        ),
       },
       {
         path: "admin/add-show",
-        element: <AddShowtime />,
+        element: (
+          <PrivateRouter>
+            <AddShowtime />
+          </PrivateRouter>
+        ),
       },
       {
         path: "admin/bookings",
-        element: <AllBookings />,
+        element: (
+          <PrivateRouter>
+            <AllBookings />
+          </PrivateRouter>
+        ),
       },
       {
         path: "admin/manage-movies",
-        element: <ManageMovies />,
+        element: (
+          <PrivateRouter>
+            <ManageMovies />
+          </PrivateRouter>
+        ),
       },
       {
         path: "admin/shows",
-        element: <ManageShowtimes />,
+        element: (
+          <PrivateRouter>
+            <ManageShowtimes />
+          </PrivateRouter>
+        ),
       },
       {
         path: "admin/users",
-        element: <Users />,
+        element: (
+          <PrivateRouter>
+            <Users />
+          </PrivateRouter>
+        ),
       },
       {
         path: "profile",
-        element: <Profile />,
+        element: (
+          <PrivateRouter>
+            <Profile />
+          </PrivateRouter>
+        ),
       },
     ],
   },
