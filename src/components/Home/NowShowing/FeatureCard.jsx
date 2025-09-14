@@ -6,7 +6,7 @@ const FeatureCard = ({ movie }) => {
     <div
       className="h-[300px] sm:h-full bg-center bg-cover bg-no-repeat rounded-xl  px-4 py-6 xl:py-6 xl:px-8 flex flex-col justify-end text-white relative"
       style={{
-        backgroundImage: `linear-gradient(to bottom, rgba(29, 231, 130, 0.0), rgba(29, 231, 130, 0.2)), url(${
+        backgroundImage: `linear-gradient(to bottom, rgba(29, 231, 130, 0.0), rgba(0, 0, 0, 0.8)), url(${
           import.meta.env.VITE_TMDB_PATH
         }${movie?.poster_path})`,
       }}

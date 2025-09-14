@@ -8,7 +8,7 @@ const Header = () => {
   const [scrolling, setScrolling] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [dropDown, setDropDown] = useState(false);
-  const user = true;
+  const user = false;
 
   useEffect(() => {
     const handleScroll = () => {

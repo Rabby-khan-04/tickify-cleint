@@ -8,6 +8,7 @@ import "swiper/css/grid";
 import MovieCard from "../../shared/Movie/MovieCard";
 import SliderNav from "../Banner/SliderNav";
 import SectionTitle from "../../shared/SectionTitle/SectionTitle";
+import BlurCircle from "../../shared/BlurCircle/BlurlCircle";
 
 const UpcomingMovies = () => {
   const [swiperRef, setSwiperRef] = useState(null);
@@ -18,7 +19,8 @@ const UpcomingMovies = () => {
 
   if (movieLoading) return <h1>Loading</h1>;
   return (
-    <section className="p-top">
+    <section className="p-top relative">
+      <BlurCircle bottom="0" left="-200px" />
       <div className="container-fluid">
         <div className="relative">
           <SectionTitle title="Coming Soon" />

@@ -9,6 +9,7 @@ import FeatureCard from "./FeatureCard";
 import { useState } from "react";
 import SliderNav from "../Banner/SliderNav";
 import SectionTitle from "../../shared/SectionTitle/SectionTitle";
+import BlurCircle from "../../shared/BlurCircle/BlurlCircle";
 
 const NowShowing = () => {
   const [swiperRef, setSwiperRef] = useState(null);
@@ -20,7 +21,9 @@ const NowShowing = () => {
   if (movieLoading) return <h1>Loading</h1>;
 
   return (
-    <section className="p-top">
+    <section className="p-top relative z-30">
+      <BlurCircle top="100px" right="-200px" />
+
       <div className="container-fluid">
         <div className="relative">
           <SectionTitle title="Now Showing" />

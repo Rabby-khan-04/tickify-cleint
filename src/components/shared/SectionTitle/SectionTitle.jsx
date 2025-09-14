@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const SectionTitle = ({ title, className = "" }) => {
+const SectionTitle = ({ title, className = "text-white" }) => {
   return (
     <h2
-      className={`text-[clamp(2rem,3vw,2rem)] text-white font-medium mb-5 ${className}`}
+      className={`text-[clamp(1.6rem,3vw,2rem)] font-medium mb-5 ${className}`}
     >
       {title}
     </h2>

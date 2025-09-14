@@ -35,11 +35,6 @@ const router = createBrowserRouter([
         path: "contact",
         element: <Contact />,
       },
-
-      {
-        path: "register",
-        element: <Register />,
-      },
       {
         path: "movies",
         element: <Movies />,
@@ -57,6 +52,10 @@ const router = createBrowserRouter([
         element: <Favorite />,
       },
     ],
+  },
+  {
+    path: "register",
+    element: <Register />,
   },
   {
     path: "login",
