@@ -22,12 +22,13 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { SlCalender } from "react-icons/sl";
 import { Delete } from "lucide-react";
+import axiosSecure from "../../utils/axiosSecure";
 
 const AddShowtime = () => {
   const { nowPlayingShows, nowPlayingShowsLoading } = useShow();
   const { theaters, theatersLoading } = useTheaters();
   const [selectedMovie, setSelectedMovie] = useState("");
-  const [selectedTheater, seSelectedTheater] = useState();
+  const [selectedTheater, seSelectedTheater] = useState("");
   const [swiperRef, setSwiperRef] = useState(null);
   const [showPrice, setShowPrice] = useState(null);
   const [selectedDateTime, setSelectedDateTime] = useState([]);
@@ -59,6 +60,8 @@ const AddShowtime = () => {
         toast.error("Date Time alrady Exist!!");
       }
     }
+
+    setShowPrice(price);
   };
 
   const handleDeleteDateTime = (date, time) => {
@@ -86,6 +89,46 @@ const AddShowtime = () => {
 
       setSelectedDateTime(filteredDateAndTime);
     }
+  };
+
+  const handleAddShow = () => {
+    if (!selectedMovie) {
+      toast.error("Select A Movie");
+      return;
+    } else if (!selectedTheater) {
+      toast.error("Select A Theater");
+      return;
+    } else if (!showPrice) {
+      toast.error("Add Show Price");
+      return;
+    } else if (!selectedDateTime) {
+      toast.error("Select Date & Time");
+      return;
+    }
+
+    const showData = {
+      movieId: selectedMovie,
+      theaters: [
+        {
+          theaterId: selectedTheater,
+          price: showPrice,
+          dates: selectedDateTime,
+        },
+      ],
+    };
+
+    axiosSecure
+      .post("/showtimes", showData)
+      .then((res) => {
+        setShowPrice(null);
+        setSelectedMovie(null);
+        seSelectedTheater(null);
+        setSelectedDateTime([]);
+        toast.success("Show Added Successfully!!");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   if (nowPlayingShowsLoading || theatersLoading) return <Spinner />;
@@ -216,7 +259,7 @@ const AddShowtime = () => {
           </form>
         </div>
 
-        {selectedDateTime && (
+        {selectedDateTime.length && (
           <div className="">
             <h2 className="text-xl text-white/80 mb-5">
               Selected Date & Time:
@@ -247,6 +290,10 @@ const AddShowtime = () => {
                 </div>
               ))}
             </div>
+
+            <button className="btn mt-5" onClick={handleAddShow}>
+              Add Show
+            </button>
           </div>
         )}
       </div>
