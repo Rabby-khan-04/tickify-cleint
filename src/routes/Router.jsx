@@ -25,6 +25,7 @@ import Root from "../layout/Root";
 import Loader from "../components/shared/Loader/Loader";
 import PrivateRouter from "./PrivateRouter";
 import AdminRoute from "./AdminRoute";
+import Theaters from "../pages/Admin/Theaters";
 
 const router = createBrowserRouter([
   {
@@ -121,6 +122,14 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <AddShowtime />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "admin/theaters",
+        element: (
+          <AdminRoute>
+            <Theaters />
           </AdminRoute>
         ),
       },

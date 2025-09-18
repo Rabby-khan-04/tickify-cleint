@@ -8,7 +8,7 @@ const DashboardLayout = () => {
       <DashboardHeader />
       <main className="flex">
         <DashboardNav />
-        <section className="flex-1">
+        <section className="flex-1 p-6 md:p-10">
           <Outlet />
         </section>
       </main>

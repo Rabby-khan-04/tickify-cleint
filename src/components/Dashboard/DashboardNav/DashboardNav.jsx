@@ -9,6 +9,8 @@ import {
   SquareUser,
   TicketCheck,
   LogOut,
+  PlusSquare,
+  Theater,
 } from "lucide-react";
 import useAuthStore from "../../../hooks/useAuthStore";
 
@@ -23,12 +25,7 @@ const DashboardNav = () => {
     {
       path: "/dashboard/admin/add-show",
       text: "Add Show",
-      ICON: LayoutDashboard,
-    },
-    {
-      path: "/dashboard/admin/bookings",
-      text: "Bookings",
-      ICON: ListTodo,
+      ICON: PlusSquare,
     },
     {
       path: "/dashboard/admin/manage-movies",
@@ -39,6 +36,16 @@ const DashboardNav = () => {
       path: "/dashboard/admin/shows",
       text: "Shows",
       ICON: TicketCheck,
+    },
+    {
+      path: "/dashboard/admin/theaters",
+      text: "Theaters",
+      ICON: Theater,
+    },
+    {
+      path: "/dashboard/admin/bookings",
+      text: "Bookings",
+      ICON: ListTodo,
     },
     {
       path: "/dashboard/admin/users",
@@ -56,7 +63,7 @@ const DashboardNav = () => {
             className="sh-9 md:h-14 w-9 md:w-14 rounded-full mx-auto object-cover"
             alt=""
           />
-          <p className="text-sm lg:text-lg font-medium text-white">
+          <p className="max-md:hidden text-sm lg:text-lg font-medium text-white">
             {userInfo?.name || "Albert Edison"}
           </p>
         </div>
@@ -83,7 +90,7 @@ const DashboardNav = () => {
           className="flex items-center md:pl-10 text-gray-400 gap-2 max-md:justify-center py-2.5 cursor-pointer"
         >
           <LogOut className="w-4 h-4" />
-          <span>Sign out</span>
+          <span className="max-md:hidden">Sign out</span>
         </div>
       </div>
     </aside>
