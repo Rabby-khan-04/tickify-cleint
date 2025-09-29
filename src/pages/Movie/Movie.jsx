@@ -1,15 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import axiosPublic from "../../utils/axiosPublic";
 import Spinner from "../../components/shared/Loader/Spinner";
 import SectionTitle from "../../components/shared/SectionTitle/SectionTitle";
 import { runtimeFormater } from "../../utils/runtimeFormater";
-import { formatYear } from "../../utils/dateFormater";
-import { FaStar } from "react-icons/fa6";
+import {
+  farmateFullDate,
+  formatTime,
+  formatYear,
+} from "../../utils/dateFormater";
+import { FaLocationDot, FaStar } from "react-icons/fa6";
 import TheaterPill from "../../components/shared/Theater/TheaterPill";
 import DateCard from "../../components/Movies/DateCard";
 import { useEffect, useState } from "react";
 import ShowTime from "../../components/shared/Movie/ShowTime";
+import toast from "react-hot-toast";
 
 const Movie = () => {
   const { movieId } = useParams();
@@ -34,6 +39,20 @@ const Movie = () => {
     },
 
     enabled: !!movieId,
+  });
+
+  const { data: theaterData, isLoading: theaterIsLoading } = useQuery({
+    queryKey: ["single-theater", selectedTheater],
+    queryFn: async ({ queryKey }) => {
+      const [_key, selectedTheater] = queryKey;
+      try {
+        const res = await axiosPublic.get(`/theaters/${selectedTheater}`);
+        return res.data?.data;
+      } catch (error) {
+        console.log(`ERROR While Fetching Theater: ${error}`);
+      }
+    },
+    enabled: !!selectedTheater,
   });
 
   useEffect(() => {
@@ -98,7 +117,7 @@ const Movie = () => {
     }
   }, [show, selectedTheater, selectedDate]);
 
-  if (showLoading) return <Spinner />;
+  if (showLoading || theaterIsLoading) return <Spinner />;
 
   const { movie } = show;
 
@@ -111,6 +130,24 @@ const Movie = () => {
     runtime,
     // overview,
   } = movie;
+
+  const handelDateSelection = (currDate) => {
+    if (!selectedTheater) {
+      toast("Select A Theater", { icon: "⚠️" });
+      return;
+    }
+
+    setSelectedDate(currDate);
+    setSelectedTime("");
+  };
+  const handelTimeSelection = (currTime) => {
+    if (!selectedDate) {
+      toast("Pick A Date First", { icon: "⚠️" });
+      return;
+    }
+
+    setSelectedTime(currTime);
+  };
 
   return (
     <main className="py-32">
@@ -137,7 +174,7 @@ const Movie = () => {
                   <DateCard
                     key={idx}
                     date={date}
-                    onSelect={(currDate) => setSelectedDate(currDate)}
+                    onSelect={(currDate) => handelDateSelection(currDate)}
                     state={selectedDate === date}
                   />
                 ))}
@@ -150,7 +187,7 @@ const Movie = () => {
                   <ShowTime
                     time={showTime}
                     key={idx}
-                    onSelect={(time) => setSelectedTime(time)}
+                    onSelect={(time) => handelTimeSelection(time)}
                     state={showTime === selectedTime}
                   />
                 ))}
@@ -182,6 +219,36 @@ const Movie = () => {
           </div>
         </div>
       </section>
+
+      {selectedTheater && theaterData && (
+        <section className="mt-16 ">
+          <div className="container-fluid flex justify-end">
+            <div className="w-96 py-10 px-14 border border-white rounded-2xl text-white space-y-8">
+              <div className="space-y-3">
+                <h3 className="text-3xl font-semibold">
+                  {theaterData.name || "N/A"}
+                </h3>
+                <p className="text-lg text-white/80 flex items-center gap-1">
+                  <FaLocationDot className="text-sm" />
+                  <span>{theaterData.location || "N/A"}</span>
+                </p>
+              </div>
+              <div className="space-y-2">
+                <h5>
+                  Date: {selectedDate ? farmateFullDate(selectedDate) : "N/A"}
+                </h5>
+                <p>Time: {selectedTime ? formatTime(selectedTime) : "N/A"}</p>
+              </div>
+
+              <p className="text-sm">*Seat selection can be done after this</p>
+
+              <Link className="btn w-full text-center" to="/">
+                Proceed
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
     </main>
   );
 };

@@ -31,3 +31,11 @@ export const formatTime = (time) => {
     minute: "2-digit",
   });
 };
+
+export const farmateFullDate = (date) => {
+  return new Date(date).toLocaleDateString("en-us", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
+};
