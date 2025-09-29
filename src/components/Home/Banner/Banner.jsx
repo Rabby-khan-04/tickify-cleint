@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-fade";
@@ -7,17 +6,14 @@ import { Autoplay, EffectFade, Pagination } from "swiper/modules";
 import BannerSlide from "./BannerSlide";
 import SliderNav from "./SliderNav";
 import { useState } from "react";
-import { fetchNowPlaying } from "../../../utils/fetchShows";
 import Spinner from "../../shared/Loader/Spinner";
+import useUpcomingShows from "../../../hooks/useUpcomingShows";
 
 const Banner = () => {
   const [swiperRef, setSwiperRef] = useState(null);
-  const { data: nowPlayingMovies, isLoading: movieLoading } = useQuery({
-    queryKey: ["now-playing"],
-    queryFn: fetchNowPlaying,
-  });
+  const { upcomingShows, upcomingShowsLoading } = useUpcomingShows();
 
-  if (movieLoading) return <Spinner />;
+  if (upcomingShowsLoading) return <Spinner />;
   return (
     <section className="relative">
       <Swiper
@@ -40,9 +36,9 @@ const Banner = () => {
         modules={[Pagination, Autoplay, EffectFade]}
         className="mySwiper"
       >
-        {nowPlayingMovies.slice(0, 4).map((movie) => (
-          <SwiperSlide key={movie.id}>
-            <BannerSlide movie={movie} />
+        {upcomingShows.slice(0, 4).map((show) => (
+          <SwiperSlide key={show.id}>
+            <BannerSlide show={show} />
           </SwiperSlide>
         ))}
       </Swiper>

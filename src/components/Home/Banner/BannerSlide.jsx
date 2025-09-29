@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import { Link } from "react-router";
 import { Calendar, Play, Star, Ticket } from "lucide-react";
 
-const BannerSlide = ({ movie }) => {
+const BannerSlide = ({ show }) => {
+  const { _id, movie } = show;
   const {
     backdrop_path,
     title,
@@ -47,7 +48,7 @@ const BannerSlide = ({ movie }) => {
           </div>
 
           <div className="flex items-center gap-6">
-            <Link to="/" className="btn-gradient">
+            <Link to={`/movie/${_id}`} className="btn-gradient">
               <Ticket />
               <span>Get Ticket</span>
             </Link>
@@ -63,7 +64,7 @@ const BannerSlide = ({ movie }) => {
 };
 
 BannerSlide.propTypes = {
-  movie: PropTypes.object,
+  show: PropTypes.object,
 };
 
 export default BannerSlide;

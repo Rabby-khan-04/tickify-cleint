@@ -28,7 +28,7 @@ const AddShowtime = () => {
   const { nowPlayingShows, nowPlayingShowsLoading } = useNowPlayingShow();
   const { theaters, theatersLoading } = useTheaters();
   const [selectedMovie, setSelectedMovie] = useState("");
-  const [selectedTheater, seSelectedTheater] = useState("");
+  const [selectedTheater, setSelectedTheater] = useState("");
   const [swiperRef, setSwiperRef] = useState(null);
   const [showPrice, setShowPrice] = useState(null);
   const [selectedDateTime, setSelectedDateTime] = useState([]);
@@ -122,7 +122,7 @@ const AddShowtime = () => {
       .then(() => {
         setShowPrice(null);
         setSelectedMovie(null);
-        seSelectedTheater(null);
+        setSelectedTheater(null);
         setSelectedDateTime([]);
         toast.success("Show Added Successfully!!");
       })
@@ -202,7 +202,7 @@ const AddShowtime = () => {
               <TheaterPill
                 key={theater._id}
                 theater={theater}
-                onSelect={(theaterId) => seSelectedTheater(theaterId)}
+                onSelect={(theaterId) => setSelectedTheater(theaterId)}
                 state={theater._id === selectedTheater}
               />
             ))}

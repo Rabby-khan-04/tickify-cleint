@@ -60,6 +60,10 @@ const router = createBrowserRouter([
         path: "favorite",
         element: <Favorite />,
       },
+      {
+        path: "movie/:movieId",
+        element: <Movie />,
+      },
     ],
   },
 
@@ -79,12 +83,6 @@ const router = createBrowserRouter([
     path: "seat",
     element: <Seat />,
   },
-
-  {
-    path: "movie",
-    element: <Movie />,
-  },
-
   {
     path: "payment-success",
     element: <PaymentSuccess />,
