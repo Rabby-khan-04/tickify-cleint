@@ -7,7 +7,6 @@ import {
   formatDay,
   formatMonth,
   formatWeakDay,
-  formatYear,
   formatYearTwo,
 } from "../../utils/dateFormater";
 
@@ -20,8 +19,8 @@ const ManageShowtimes = () => {
 
   return (
     <div className="text-white">
-      <div className="flex items-center justify-between">
-        <SectionTitle title="Shows" />
+      <div className="flex items-center justify-between mb-5">
+        <SectionTitle title="All Shows" />
         <Link
           className="btn inline-flex items-center gap-2"
           to="/dashboard/admin/add-show"
@@ -79,14 +78,14 @@ const ManageShowtimes = () => {
                     </div>
                   </td>
                   <td className="border border-white/60 px-4 py-2">
-                    <div className="">
-                      <button>
+                    <div className="flex items-center justify-center gap-2">
+                      <button className="p-2 rounded-md cursor-pointer bg-primary">
                         <FaEye />
                       </button>
-                      <button>
+                      <button className="p-2 rounded-md cursor-pointer bg-accent">
                         <FaPen />
                       </button>
-                      <button>
+                      <button className="p-2 rounded-md cursor-pointer bg-red-500">
                         <FaTrash />
                       </button>
                     </div>

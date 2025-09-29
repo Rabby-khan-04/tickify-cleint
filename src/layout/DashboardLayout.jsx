@@ -6,9 +6,9 @@ const DashboardLayout = () => {
   return (
     <>
       <DashboardHeader />
-      <main className="flex">
+      <main className="flex h-[calc(100vh-73px)]">
         <DashboardNav />
-        <section className="flex-1 p-6 md:p-10 min-w-0 relative">
+        <section className="flex-1 p-6 md:p-10 min-w-0 overflow-y-auto">
           <Outlet />
         </section>
       </main>

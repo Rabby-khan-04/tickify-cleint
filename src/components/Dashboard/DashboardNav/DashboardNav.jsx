@@ -55,7 +55,7 @@ const DashboardNav = () => {
   ];
 
   return (
-    <aside className="max-w-13 md:max-w-60 w-full h-[calc(100vh-65px)] md:h-[calc(100vh-73px)] shrink-0 border-r border-primary-light/20 pt-8 flex flex-col justify-between">
+    <aside className="shrink-0 max-w-13 md:max-w-60 w-full h-full border-r border-primary-light/20 pt-8 flex flex-col justify-between">
       <div>
         <div className="text-center space-y-2">
           <img
