@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Spinner from "../../components/shared/Loader/Spinner";
 import SectionTitle from "../../components/shared/SectionTitle/SectionTitle";
-import useShow from "../../hooks/useShow";
+import useNowPlayingShow from "../../hooks/useNowPlayingShow";
 import SliderNav from "../../components/Home/Banner/SliderNav";
 import ShowCard from "../../components/shared/Movie/ShowCard";
 import { FaCheck } from "react-icons/fa";
@@ -25,7 +25,7 @@ import { Delete } from "lucide-react";
 import axiosSecure from "../../utils/axiosSecure";
 
 const AddShowtime = () => {
-  const { nowPlayingShows, nowPlayingShowsLoading } = useShow();
+  const { nowPlayingShows, nowPlayingShowsLoading } = useNowPlayingShow();
   const { theaters, theatersLoading } = useTheaters();
   const [selectedMovie, setSelectedMovie] = useState("");
   const [selectedTheater, seSelectedTheater] = useState("");
@@ -119,7 +119,7 @@ const AddShowtime = () => {
 
     axiosSecure
       .post("/showtimes", showData)
-      .then((res) => {
+      .then(() => {
         setShowPrice(null);
         setSelectedMovie(null);
         seSelectedTheater(null);

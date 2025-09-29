@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchNowPlaying } from "../utils/fetchShows";
 
-const useShow = () => {
+const useNowPlayingShow = () => {
   const {
     data: nowPlayingShows,
     isLoading: nowPlayingShowsLoading,
@@ -14,4 +14,4 @@ const useShow = () => {
   return { nowPlayingShows, nowPlayingShowsLoading, isError };
 };
 
-export default useShow;
+export default useNowPlayingShow;
