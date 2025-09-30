@@ -1,21 +1,59 @@
 import { Link, useParams } from "react-router";
 import useMovie from "../../hooks/useMovie";
 import Spinner from "../../components/shared/Loader/Spinner";
-import { Calendar, Earth, PartyPopper, Play, Star, Ticket } from "lucide-react";
+import {
+  Calendar,
+  Earth,
+  Heart,
+  PartyPopper,
+  Play,
+  Star,
+  Ticket,
+} from "lucide-react";
 import { farmateFullDate, formatYear } from "../../utils/dateFormater";
 import { runtimeFormater } from "../../utils/runtimeFormater";
-import { FaClock } from "react-icons/fa6";
+import { FaClock, FaHeart } from "react-icons/fa6";
 import SectionTitle from "../../components/shared/SectionTitle/SectionTitle";
 import useShowByMovie from "../../hooks/useShowByMovie";
 import toast from "react-hot-toast";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axiosPublic from "../../utils/axiosPublic";
+import useFavorites from "../../hooks/useFavorites";
+import { useEffect, useState } from "react";
+import { FaRegHeart } from "react-icons/fa";
 
 const Movie = () => {
+  const [isFavoirte, setIsFavorite] = useState(false);
   const { movieId } = useParams();
   const { movieDetails, movieDetailsLoading } = useMovie(movieId);
   const { showData, showDataLoading } = useShowByMovie(movieDetails?._id);
-  if (movieDetailsLoading || showDataLoading) return <Spinner />;
+  const { favorites, favoritesLoading } = useFavorites();
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    const movie = favorites.find((item) => item._id === movieDetails?._id);
+
+    if (movie) setIsFavorite(true);
+  }, [favorites, movieDetails?._id]);
+
+  const { mutate: addFavorite } = useMutation({
+    mutationKey: ["add-favorite"],
+    mutationFn: async (movieId) => {
+      const res = await axiosPublic.post(`/users/favorite/${movieId}`);
+
+      return res.data;
+    },
+    onSuccess: (data) => {
+      toast.success(data.message);
+      queryClient.invalidateQueries({ queryKey: ["favorites"] });
+    },
+  });
+
+  if (movieDetailsLoading || showDataLoading || favoritesLoading)
+    return <Spinner />;
 
   const {
+    _id,
     backdrop_path,
     title,
     overview,
@@ -28,6 +66,8 @@ const Movie = () => {
     runtime,
     genres,
   } = movieDetails;
+
+  console.log(favorites);
 
   const handelNoShowMovies = () => {
     toast("No show available", { icon: "⚠️" });
@@ -51,27 +91,27 @@ const Movie = () => {
               alt=""
             />
           </div>
-          <div className="text-white max-w-xl">
+          <div className="text-white max-w-3xl">
             <h2 className="text-[clamp(2rem,3vw,80px)] font-bold">{title}</h2>
             <p className="text-base md:text-lg mb-4">{overview}</p>
 
-            <div className="mb-3 flex items-center gap-4">
+            <div className="mb-3 flex items-center gap-4 flex-wrap">
               <div className="flex items-center gap-1">
                 <FaClock />
                 <p>{runtimeFormater(runtime)}</p>
               </div>
 
               <div className="flex items-center gap-1">
-                {genres.map((genre) => (
-                  <div key={genre._id}>
-                    <p>• {genre.name}</p>
-                  </div>
-                ))}
+                <Calendar />
+                <p>{formatYear(release_date)}</p>
               </div>
 
               <div className="flex items-center gap-1">
-                <Calendar />
-                <p>{formatYear(release_date)}</p>
+                {genres.map((genre) => (
+                  <div key={genre._id}>
+                    <p className="whitespace-nowrap">• {genre.name}</p>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -91,13 +131,24 @@ const Movie = () => {
                 <Play />
                 <span>Trailer</span>
               </Link>
+
+              <button
+                onClick={() => addFavorite(_id)}
+                className="inline-block border border-border/80 p-2 rounded-full cursor-pointer text-2xl"
+              >
+                {isFavoirte ? (
+                  <FaHeart className="text-red-500" />
+                ) : (
+                  <FaRegHeart />
+                )}
+              </button>
             </div>
           </div>
         </div>
       </section>
 
       <section className="py-32">
-        <div className="container-fluid flex items-center gap-6">
+        <div className="container-fluid flex items-center gap-6 max-lg:flex-col">
           <div className="flex-1">
             <SectionTitle title="Your Favorite Cast" />
             <div className="flex items-center flex-wrap gap-2">
@@ -120,7 +171,7 @@ const Movie = () => {
               ))}
             </div>
           </div>
-          <div className="w-full md:w-96 py-5 px-7 md:py-10 md:px-14 border border-primary-light rounded-2xl text-white space-y-8">
+          <div className="w-full lg:w-96 py-5 px-7 md:py-10 md:px-14 border border-primary-light rounded-2xl text-white space-y-8">
             <h2 className="text-white text-[clamp(1.3rem,2vw,1.5rem)] font-semibold">
               More Details
             </h2>
