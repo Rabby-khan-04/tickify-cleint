@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import axiosPublic from "../../utils/axiosPublic";
 import Spinner from "../../components/shared/Loader/Spinner";
 import SectionTitle from "../../components/shared/SectionTitle/SectionTitle";
@@ -16,8 +16,11 @@ import { useEffect, useState } from "react";
 import ShowTime from "../../components/shared/Movie/ShowTime";
 import toast from "react-hot-toast";
 import BlurCircle from "../../components/shared/BlurCircle/BlurlCircle";
+import useAuthStore from "../../hooks/useAuthStore";
+import useBookingStore from "../../hooks/useBookingStore";
 
 const Showtime = () => {
+  const { authUser } = useAuthStore();
   const { showId } = useParams();
   const [theaters, setTheaters] = useState([]);
   const [date, setDate] = useState([]);
@@ -25,6 +28,9 @@ const Showtime = () => {
   const [selectedTheater, setSelectedTheater] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
+  const [selectedPrice, setSelectedPrice] = useState(0);
+  const { setBookingData } = useBookingStore();
+  const navigate = useNavigate();
 
   const { data: show, isLoading: showLoading } = useQuery({
     queryKey: ["show", showId],
@@ -64,6 +70,7 @@ const Showtime = () => {
       const allTimes = [];
 
       show.theaters.forEach((theater) => {
+        setSelectedPrice(theater.price);
         allTheater.push(theater.theaterId);
         theater.dates.forEach((date) => {
           if (!allDates.includes(date.date)) {
@@ -148,6 +155,24 @@ const Showtime = () => {
     }
 
     setSelectedTime(currTime);
+  };
+
+  const handleProceed = () => {
+    if (!selectedTheater || !selectedDate || !selectedTime || !selectedPrice) {
+      toast("Select Theater, Date and Time", { icon: "⚠️" });
+      return;
+    }
+
+    setBookingData({
+      theater: selectedTheater,
+      price: selectedPrice,
+      date: selectedDate,
+      time: selectedTime,
+      showId: show._id,
+      movie: movie._id,
+    });
+
+    navigate("/seat");
   };
 
   return (
@@ -243,13 +268,23 @@ const Showtime = () => {
                   Date: {selectedDate ? farmateFullDate(selectedDate) : "N/A"}
                 </h5>
                 <p>Time: {selectedTime ? formatTime(selectedTime) : "N/A"}</p>
+                <p>Price: {selectedPrice ? `$${selectedPrice}` : "N/A"}</p>
               </div>
 
               <p className="text-sm">*Seat selection can be done after this</p>
 
-              <Link className="btn w-full text-center" to="/">
+              <button
+                className="btn w-full text-center disabled:bg-gray-500 disabled:pointer-events-none"
+                disabled={
+                  !authUser ||
+                  !selectedTheater ||
+                  !selectedDate ||
+                  !selectedTime
+                }
+                onClick={handleProceed}
+              >
                 Proceed
-              </Link>
+              </button>
             </div>
           </div>
         </section>

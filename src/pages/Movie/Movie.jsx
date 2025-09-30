@@ -1,15 +1,7 @@
 import { Link, useParams } from "react-router";
 import useMovie from "../../hooks/useMovie";
 import Spinner from "../../components/shared/Loader/Spinner";
-import {
-  Calendar,
-  Earth,
-  Heart,
-  PartyPopper,
-  Play,
-  Star,
-  Ticket,
-} from "lucide-react";
+import { Calendar, Earth, PartyPopper, Play, Star, Ticket } from "lucide-react";
 import { farmateFullDate, formatYear } from "../../utils/dateFormater";
 import { runtimeFormater } from "../../utils/runtimeFormater";
 import { FaClock, FaHeart } from "react-icons/fa6";
@@ -31,6 +23,8 @@ const Movie = () => {
   const queryClient = useQueryClient();
 
   useEffect(() => {
+    if (!favorites) return;
+
     const movie = favorites.find((item) => item._id === movieDetails?._id);
 
     if (movie) setIsFavorite(true);
@@ -66,8 +60,6 @@ const Movie = () => {
     runtime,
     genres,
   } = movieDetails;
-
-  console.log(favorites);
 
   const handelNoShowMovies = () => {
     toast("No show available", { icon: "⚠️" });
