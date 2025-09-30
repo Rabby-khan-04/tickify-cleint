@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router";
 import { Calendar, Play, Star, Ticket } from "lucide-react";
+import { farmateFullDate } from "../../../utils/dateFormater";
 
 const BannerSlide = ({ show }) => {
   const { _id, movie } = show;
@@ -43,12 +44,12 @@ const BannerSlide = ({ show }) => {
 
             <div className="flex items-center gap-1">
               <Calendar />
-              <p>{release_date}</p>
+              <p>{farmateFullDate(release_date)}</p>
             </div>
           </div>
 
           <div className="flex items-center gap-6">
-            <Link to={`/movie/${_id}`} className="btn-gradient">
+            <Link to={`/showtime/${_id}`} className="btn-gradient">
               <Ticket />
               <span>Get Ticket</span>
             </Link>

@@ -17,7 +17,6 @@ import BookingDetails from "../pages/Booking/BookingDetails";
 import Checkout from "../pages/Booking/Checkout";
 import Movies from "../pages/Movie/Movies";
 import Seat from "../pages/Movie/Seat";
-import Movie from "../pages/Movie/Movie";
 import PaymentSuccess from "../pages/Booking/PaymentSuccess";
 import TicketDetails from "../pages/Booking/TicketDetails";
 import Favorite from "../pages/User/Favorite";
@@ -26,6 +25,8 @@ import Loader from "../components/shared/Loader/Loader";
 import PrivateRouter from "./PrivateRouter";
 import AdminRoute from "./AdminRoute";
 import Theaters from "../pages/Admin/Theaters";
+import Showtime from "../pages/Booking/Showtime";
+import Movie from "../pages/Movie/Movie";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: "favorite",
         element: <Favorite />,
+      },
+      {
+        path: "showtime/:showId",
+        element: <Showtime />,
       },
       {
         path: "movie/:movieId",

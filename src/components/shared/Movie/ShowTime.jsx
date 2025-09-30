@@ -11,8 +11,10 @@ const ShowTime = ({ time, state = false, onSelect }) => {
   return (
     <div
       onClick={handleClick}
-      className={`text-white py-3 px-5 border rounded-lg inline-block cursor-pointer ${
-        state ? "bg-primary border-primary" : "bg-transparent border-white"
+      className={`px-3 py-2 md:py-3 md:px-5 border rounded-lg inline-block cursor-pointer max-md:text-sm ${
+        state
+          ? "bg-primary border-primary text-dark"
+          : "bg-transparent border-white text-white"
       }`}
     >
       <p>{formatTime(time)}</p>

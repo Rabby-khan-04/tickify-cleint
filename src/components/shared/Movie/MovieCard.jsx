@@ -1,11 +1,19 @@
 import { Calendar, Star } from "lucide-react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router";
 
 const MovieCard = ({ movie }) => {
-  const { title, poster_path, vote_average, release_date } = movie;
+  const navigate = useNavigate();
+  const { title, poster_path, vote_average, release_date, id, movieId } = movie;
+
+  const handleNavigate = (movieId) => {
+    navigate(`/movie/${movieId}`);
+  };
+
   return (
     <div
-      className="w-full h-[300px] bg-center bg-cover bg-no-repeat rounded-xl p-6 flex flex-col justify-end text-white"
+      onClick={() => handleNavigate(id || movieId)}
+      className="w-full h-[300px] bg-center bg-cover bg-no-repeat rounded-xl p-6 flex flex-col justify-end text-white cursor-pointer"
       style={{
         backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(${
           import.meta.env.VITE_TMDB_PATH

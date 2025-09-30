@@ -3,26 +3,22 @@ import "swiper/css";
 import "swiper/css/grid";
 import { Autoplay, Grid } from "swiper/modules";
 import MovieCard from "../../shared/Movie/MovieCard";
-import { fetchNowPlaying } from "../../../utils/fetchShows";
-import { useQuery } from "@tanstack/react-query";
 import FeatureCard from "./FeatureCard";
 import { useState } from "react";
 import SliderNav from "../Banner/SliderNav";
 import SectionTitle from "../../shared/SectionTitle/SectionTitle";
 import BlurCircle from "../../shared/BlurCircle/BlurlCircle";
 import Spinner from "../../shared/Loader/Spinner";
+import useUpcomingShows from "../../../hooks/useUpcomingShows";
 
 const NowShowing = () => {
+  const { upcomingShows, upcomingShowsLoading } = useUpcomingShows();
   const [swiperRef, setSwiperRef] = useState(null);
-  const { data: nowPlayingMovies, isLoading: movieLoading } = useQuery({
-    queryKey: ["now-playing"],
-    queryFn: fetchNowPlaying,
-  });
 
-  if (movieLoading) return <Spinner />;
+  if (upcomingShowsLoading) return <Spinner />;
 
   return (
-    <section className="p-top relative z-30">
+    <section className="p-top relative z-30 overflow-x-hidden">
       <BlurCircle top="100px" right="-200px" />
 
       <div className="container-fluid">
@@ -33,7 +29,7 @@ const NowShowing = () => {
 
         <div className="flex flex-col-reverse sm:grid sm:grid-cols-2 md:grid-cols-7 gap-[30px]">
           <div className="md:col-span-3 xl:col-span-2">
-            <FeatureCard movie={nowPlayingMovies[0]} />
+            <FeatureCard show={upcomingShows[0]} />
           </div>
           <div className="md:col-span-4 xl:col-span-5">
             <Swiper
@@ -70,9 +66,9 @@ const NowShowing = () => {
                 },
               }}
             >
-              {nowPlayingMovies?.slice(1)?.map((movie) => (
-                <SwiperSlide key={movie.id}>
-                  <MovieCard movie={movie} />
+              {upcomingShows?.slice(1)?.map((show) => (
+                <SwiperSlide key={show._id}>
+                  <MovieCard movie={show.movie} />
                 </SwiperSlide>
               ))}
             </Swiper>

@@ -1,7 +1,8 @@
 import { Calendar, Play, Star, Ticket } from "lucide-react";
 import { Link } from "react-router";
 
-const FeatureCard = ({ movie }) => {
+const FeatureCard = ({ show }) => {
+  let movie = show.movie;
   return (
     <div
       className="h-[300px] sm:h-full bg-center bg-cover bg-no-repeat rounded-xl  px-4 py-6 xl:py-6 xl:px-8 flex flex-col justify-end text-white relative"
@@ -28,7 +29,7 @@ const FeatureCard = ({ movie }) => {
       </div>
 
       <div>
-        <Link to="/" className="btn-gradient-sm">
+        <Link to={`/showtime/${show._id}`} className="btn-gradient-sm">
           <Ticket />
           <span>Get Ticket</span>
         </Link>
