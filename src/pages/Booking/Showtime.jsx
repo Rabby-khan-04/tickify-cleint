@@ -201,10 +201,12 @@ const Showtime = () => {
             <img
               src={`${import.meta.env.VITE_TMDB_PATH}${poster_path}`}
               alt=""
-              className="rounded-[20px] inline-block mb-9 max-md:max-w-72"
+              className="rounded-[20px] inline-block mb-9 max-w-60 sm:w-72"
             />
             <div className="space-y-4">
-              <h2 className="text-white text-2xl font-semibold">{title}</h2>
+              <h2 className="text-white text-[clamp(1.3rem,2vw,1.5rem)] font-semibold">
+                {title}
+              </h2>
               {/* <p className="text-white/80 text-sm">{overview}</p> */}
               <div className="grid grid-cols-2 gap-1 text-white/80">
                 <p>Duration: </p>
@@ -224,9 +226,9 @@ const Showtime = () => {
       </section>
 
       {selectedTheater && theaterData && (
-        <section className="mt-16 ">
+        <section className="mt-10 lg:mt-16 ">
           <div className="container-fluid flex justify-end">
-            <div className="w-full md:w-96 py-10 px-14 border border-white rounded-2xl text-white space-y-8">
+            <div className="w-full md:w-96 py-5 px-7 md:py-10 md:px-14 border border-white rounded-2xl text-white space-y-8">
               <div className="space-y-3">
                 <h3 className="text-3xl font-semibold">
                   {theaterData.name || "N/A"}
