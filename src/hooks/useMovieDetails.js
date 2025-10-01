@@ -1,24 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
 import axiosPublic from "../utils/axiosPublic";
 
-const useMovie = (movieId) => {
+const useMovieDetails = (movieId) => {
   const {
     data: movieDetails,
     isLoading: movieDetailsLoading,
     isError,
     isPending,
   } = useQuery({
-    queryKey: ["movie", movieId],
+    queryKey: ["movie-details", movieId],
     queryFn: async ({ queryKey }) => {
       try {
         const [_key, movieId] = queryKey;
-        const res = await axiosPublic.get(`/movies/${movieId}`);
+        const res = await axiosPublic.get(`/movies/movie/${movieId}`);
 
         console.log(movieId);
 
         return res.data?.data;
       } catch (error) {
-        console.log(`ERROR While Fetching Movie: ${error}`);
+        console.log(`ERROR While Fetching Movie Details: ${error}`);
       }
     },
     enabled: !!movieId,
@@ -27,4 +27,4 @@ const useMovie = (movieId) => {
   return { movieDetails, movieDetailsLoading, isError, isPending };
 };
 
-export default useMovie;
+export default useMovieDetails;
