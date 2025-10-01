@@ -13,6 +13,7 @@ import axiosPublic from "../../utils/axiosPublic";
 import useFavorites from "../../hooks/useFavorites";
 import { useEffect, useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
+import BlurCircle from "../../components/shared/BlurCircle/BlurlCircle";
 
 const Movie = () => {
   const [isFavoirte, setIsFavorite] = useState(false);
@@ -139,7 +140,9 @@ const Movie = () => {
         </div>
       </section>
 
-      <section className="py-32">
+      <section className="py-32 relative overflow-x-hidden">
+        <BlurCircle top="0" right="-150px" />
+        <BlurCircle top="0" left="-200px" />
         <div className="container-fluid flex items-center gap-6 max-lg:flex-col">
           <div className="flex-1">
             <SectionTitle title="Your Favorite Cast" />
@@ -163,7 +166,7 @@ const Movie = () => {
               ))}
             </div>
           </div>
-          <div className="w-full lg:w-96 py-5 px-7 md:py-10 md:px-14 border border-primary-light rounded-2xl text-white space-y-8">
+          <div className="w-full bg-primary/10 lg:w-96 py-5 px-7 md:py-10 md:px-14 border border-primary rounded-2xl text-white space-y-8">
             <h2 className="text-white text-[clamp(1.3rem,2vw,1.5rem)] font-semibold">
               More Details
             </h2>

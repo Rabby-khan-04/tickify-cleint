@@ -4,7 +4,7 @@ import TitleBanner from "../../components/shared/TitleBanner/TitleBanner";
 
 const Movies = () => {
   return (
-    <main>
+    <main className="">
       <TitleBanner title="Movies" />
       <NowShowingMovies />
       <UpcomingShows />

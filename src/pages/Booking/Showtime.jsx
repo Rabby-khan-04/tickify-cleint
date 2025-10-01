@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, useLocation, useNavigate, useParams } from "react-router";
 import axiosPublic from "../../utils/axiosPublic";
 import Spinner from "../../components/shared/Loader/Spinner";
 import SectionTitle from "../../components/shared/SectionTitle/SectionTitle";
@@ -30,6 +30,7 @@ const Showtime = () => {
   const [selectedTime, setSelectedTime] = useState("");
   const [selectedPrice, setSelectedPrice] = useState(0);
   const { setBookingData } = useBookingStore();
+  const location = useLocation();
   const navigate = useNavigate();
 
   const { data: show, isLoading: showLoading } = useQuery({
@@ -172,7 +173,7 @@ const Showtime = () => {
       movie: movie._id,
     });
 
-    navigate("/seat");
+    navigate("/seat", { state: { from: location.pathname } });
   };
 
   return (
@@ -251,9 +252,10 @@ const Showtime = () => {
       </section>
 
       {selectedTheater && theaterData && (
-        <section className="mt-10 lg:mt-16 ">
+        <section className="mt-10 lg:mt-16 relative">
+          <BlurCircle bottom="-150px" right="-150px" />
           <div className="container-fluid flex justify-end">
-            <div className="w-full md:w-96 py-5 px-7 md:py-10 md:px-14 border border-white rounded-2xl text-white space-y-8">
+            <div className="w-full bg-primary/10 md:w-96 py-5 px-7 md:py-10 md:px-14 border border-primary rounded-2xl text-white space-y-8">
               <div className="space-y-3">
                 <h3 className="text-3xl font-semibold">
                   {theaterData.name || "N/A"}

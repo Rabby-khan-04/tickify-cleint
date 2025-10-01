@@ -2,11 +2,21 @@ import React from "react";
 import PropTypes from "prop-types";
 import { FaStar } from "react-icons/fa6";
 import { BiSolidUpvote } from "react-icons/bi";
+import { useNavigate } from "react-router";
 
 const ShowCard = ({ movie }) => {
-  const { title, poster_path, vote_average, vote_count } = movie;
+  const navigate = useNavigate();
+  const { title, poster_path, vote_average, vote_count, id } = movie;
+
+  const handleNavigate = (movieId) => {
+    navigate(`/movie/${movieId}`);
+  };
+
   return (
-    <div className="max-w-56 md:max-w-80 cursor-pointer transform hover:-translate-y-4 transition-all duration-200 text-white">
+    <div
+      onClick={() => handleNavigate(id)}
+      className="max-w-56 md:max-w-80 cursor-pointer transform hover:-translate-y-4 transition-all duration-200 text-white"
+    >
       <div className="rounded-xl overflow-hidden relative">
         <img src={`${import.meta.env.VITE_TMDB_PATH}${poster_path}`} alt="" />
 
