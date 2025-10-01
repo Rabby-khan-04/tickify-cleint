@@ -6,6 +6,9 @@ import screen from "../../assets/icon/screen.svg";
 import { useState } from "react";
 import SeatLayout from "../../components/Movies/SeatLayout";
 import { FaTimes } from "react-icons/fa";
+import useBookedSeats from "../../hooks/useBookedSeats";
+import { formatTime } from "../../utils/dateFormater";
+import Spinner from "../../components/shared/Loader/Spinner";
 
 const Seat = () => {
   const [selectedSeat, setSelectedSeat] = useState([]);
@@ -13,6 +16,9 @@ const Seat = () => {
   const navigate = useNavigate();
   const { theater, price, date, time, showId, movie, clearBookingData } =
     useBookingStore();
+
+  const bookingInfo = { theaterId: theater, date, time: formatTime(time) };
+  const { bookedSeat, bookedSeatLoading } = useBookedSeats(showId, bookingInfo);
 
   const rowGroup = [
     ["A", "B"],
@@ -31,6 +37,8 @@ const Seat = () => {
   const handleRemoveSeatSelection = () => {
     setSelectedSeat([]);
   };
+
+  if (bookedSeatLoading) return <Spinner />;
 
   return (
     <main className="relative h-[calc(100vh-120px)] py-16 overflow-y-scroll lg:overflow-y-hidden overflow-x-hidden">
@@ -53,6 +61,7 @@ const Seat = () => {
                     row={row}
                     setSelectedSeat={setSelectedSeat}
                     selectedSeat={selectedSeat}
+                    bookedSeat={bookedSeat}
                   />
                 ))}
               </div>
@@ -66,6 +75,7 @@ const Seat = () => {
                         row={row}
                         setSelectedSeat={setSelectedSeat}
                         selectedSeat={selectedSeat}
+                        bookedSeat={bookedSeat}
                       />
                     ))}
                   </div>
@@ -79,6 +89,7 @@ const Seat = () => {
                     row={row}
                     setSelectedSeat={setSelectedSeat}
                     selectedSeat={selectedSeat}
+                    bookedSeat={bookedSeat}
                   />
                 ))}
               </div>

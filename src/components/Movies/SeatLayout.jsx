@@ -1,7 +1,13 @@
 import PropTypes from "prop-types";
 import toast from "react-hot-toast";
 
-const SeatLayout = ({ row, column = 10, setSelectedSeat, selectedSeat }) => {
+const SeatLayout = ({
+  row,
+  column = 10,
+  setSelectedSeat,
+  selectedSeat,
+  bookedSeat,
+}) => {
   return (
     <div className="flex flex-wrap items-center justify-center gap-2">
       {Array.from({ length: column }, (_, i) => i).map((col) => {
@@ -27,7 +33,8 @@ const SeatLayout = ({ row, column = 10, setSelectedSeat, selectedSeat }) => {
               selectedSeat.includes(seatId)
                 ? "bg-primary text-dark"
                 : " text-white"
-            }`}
+            } disabled:opacity-50`}
+            disabled={bookedSeat.includes(seatId)}
           >
             {seatId}
           </button>
@@ -42,6 +49,7 @@ SeatLayout.propTypes = {
   column: PropTypes.number,
   setSelectedSeat: PropTypes.func,
   selectedSeat: PropTypes.array,
+  bookedSeat: PropTypes.array,
 };
 
 export default SeatLayout;

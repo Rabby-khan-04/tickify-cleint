@@ -10,8 +10,10 @@ const useBookingStore = create(
       time: null,
       showId: null,
       movie: null,
+      seats: [],
 
-      setBookingData: (data) => set(() => ({ ...data })),
+      setBookingData: (data) => set((state) => ({ ...state, ...data })),
+      setBookedSeat: (data) => set(() => ({ seats: data })),
       clearBookingData: () =>
         set(() => ({
           theater: null,
@@ -19,6 +21,7 @@ const useBookingStore = create(
           time: null,
           showId: null,
           movie: null,
+          seats: [],
         })),
     }),
     {
