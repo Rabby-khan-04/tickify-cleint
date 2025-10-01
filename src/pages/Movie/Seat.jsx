@@ -9,13 +9,21 @@ import { FaTimes } from "react-icons/fa";
 import useBookedSeats from "../../hooks/useBookedSeats";
 import { formatTime } from "../../utils/dateFormater";
 import Spinner from "../../components/shared/Loader/Spinner";
+import toast from "react-hot-toast";
 
 const Seat = () => {
   const [selectedSeat, setSelectedSeat] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
-  const { theater, price, date, time, showId, movie, clearBookingData } =
-    useBookingStore();
+  const {
+    theater,
+    price,
+    date,
+    time,
+    showId,
+    clearBookingData,
+    setBookedSeat,
+  } = useBookingStore();
 
   const bookingInfo = { theaterId: theater, date, time: formatTime(time) };
   const { bookedSeat, bookedSeatLoading } = useBookedSeats(showId, bookingInfo);
@@ -36,6 +44,13 @@ const Seat = () => {
 
   const handleRemoveSeatSelection = () => {
     setSelectedSeat([]);
+  };
+
+  const handleProceedPayment = () => {
+    if (!selectedSeat.length)
+      return toast("Select Seat first!!", { icon: "⚠️" });
+    setBookedSeat(selectedSeat);
+    navigate("/checkout");
   };
 
   if (bookedSeatLoading) return <Spinner />;
@@ -105,23 +120,37 @@ const Seat = () => {
       </section>
       <section className="border-t bg-dark-light border-primary-light fixed w-full bottom-0 left-0 right-0 py-6 lg:bg-primary/10">
         <div className="container-fluid">
-          <div className="max-w-5xl mx-auto flex items-center justify-between">
+          <div className="max-w-5xl mx-auto flex max-md:flex-wrap items-center justify-between max-md:gap-4">
             <div className="">
               <h4 className="text-lg uppercase font-medium text-white">
                 TOTAL
               </h4>
-              <p className="font-bold text-4xl text-white">$ {price}</p>
+              <p className="font-bold text-[clamp(1.3rem,3vw,2rem)] text-white">
+                $ {price}
+              </p>
             </div>
-            <div className="">
-              <h4 className="text-lg uppercase font-medium text-white">SEAT</h4>
-              <p className="font-bold text-4xl text-white">C8, C9, C10</p>
-            </div>
+            {selectedSeat.length > 0 && (
+              <div className="">
+                <h4 className="text-lg uppercase font-medium text-white">
+                  SEAT
+                </h4>
+                <p className="font-bold text-[clamp(1.3rem,3vw,2rem)] text-white">
+                  {selectedSeat.join(",")}
+                </p>
+              </div>
+            )}
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center max-md:justify-between max-md:w-full gap-4 flex-wrap">
               <button onClick={handleBackNavigation} className="btn-alt">
                 Back
               </button>
-              <button className="btn">Proceed Payment</button>
+              <button
+                className="btn disabled:bg-gray-500 disabled:pointer-events-none disabled:border-gray-500"
+                onClick={handleProceedPayment}
+                disabled={!selectedSeat.length}
+              >
+                Proceed Payment
+              </button>
             </div>
           </div>
         </div>
