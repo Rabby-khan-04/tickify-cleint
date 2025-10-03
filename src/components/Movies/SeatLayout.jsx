@@ -33,7 +33,9 @@ const SeatLayout = ({
               selectedSeat.includes(seatId)
                 ? "bg-primary text-dark"
                 : " text-white"
-            } disabled:opacity-50`}
+            } disabled:opacity-50 ${
+              bookedSeat.includes(seatId) && "pointer-events-none"
+            }`}
             disabled={bookedSeat.includes(seatId)}
           >
             {seatId}

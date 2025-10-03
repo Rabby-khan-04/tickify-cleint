@@ -4,12 +4,16 @@ import { FaStar } from "react-icons/fa6";
 import { BiSolidUpvote } from "react-icons/bi";
 import { useNavigate } from "react-router";
 
-const ShowCard = ({ movie }) => {
+const ShowCard = ({ movie, redirect = true }) => {
   const navigate = useNavigate();
   const { title, poster_path, vote_average, vote_count, id } = movie;
 
   const handleNavigate = (movieId) => {
-    navigate(`/movie/${movieId}`);
+    if (redirect) {
+      navigate(`/movie/${movieId}`);
+    } else {
+      return;
+    }
   };
 
   return (

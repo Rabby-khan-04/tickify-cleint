@@ -1,6 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
 import axiosPublic from "../utils/axiosPublic";
-import toast from "react-hot-toast";
 
 const useAddBooking = () => {
   const {
@@ -19,9 +18,6 @@ const useAddBooking = () => {
       } catch (error) {
         console.log(`ERROR While Booking Show: ${error}`);
       }
-    },
-    onSuccess: () => {
-      toast.success("Ticket Booked Successfully!!");
     },
   });
 

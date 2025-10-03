@@ -71,7 +71,6 @@ const Showtime = () => {
       const allTimes = [];
 
       show.theaters.forEach((theater) => {
-        setSelectedPrice(theater.price);
         allTheater.push(theater.theaterId);
         theater.dates.forEach((date) => {
           if (!allDates.includes(date.date)) {
@@ -97,6 +96,7 @@ const Showtime = () => {
       );
 
       restTheater.forEach((theater) => {
+        setSelectedPrice(theater.price);
         newTheaters.push(theater.theaterId);
         theater.dates.forEach((date) => {
           newDates.push(date.date);
@@ -159,6 +159,7 @@ const Showtime = () => {
   };
 
   const handleProceed = () => {
+    console.log(selectedTheater, selectedDate, selectedTime, selectedPrice);
     if (!selectedTheater || !selectedDate || !selectedTime || !selectedPrice) {
       toast("Select Theater, Date and Time", { icon: "⚠️" });
       return;

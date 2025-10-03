@@ -182,7 +182,7 @@ const AddShowtime = () => {
                     className="group-hover:not-hover:opacity-40 relative"
                     onClick={() => setSelectedMovie(show.id)}
                   >
-                    <ShowCard movie={show} />
+                    <ShowCard movie={show} redirect={false} />
                     {selectedMovie === show.id && (
                       <div className="absolute top-2 right-2 p-1 bg-primary rounded-md text-dark">
                         <FaCheck className="text-lg" />

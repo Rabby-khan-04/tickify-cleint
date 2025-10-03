@@ -1,12 +1,16 @@
+import toast from "react-hot-toast";
 import BlurCircle from "../../components/shared/BlurCircle/BlurlCircle";
 import SectionTitle from "../../components/shared/SectionTitle/SectionTitle";
 import useAddBooking from "../../hooks/useAddBooking";
 import useBookingStore from "../../hooks/useBookingStore";
 import { formatTime } from "../../utils/dateFormater";
+import { useNavigate } from "react-router";
 
 const Checkout = () => {
-  const { addBooking } = useAddBooking();
-  const { theater, date, time, showId, movie, seats } = useBookingStore();
+  const navigate = useNavigate();
+  const { addBooking, isPending } = useAddBooking();
+  const { theater, date, time, showId, movie, seats, clearBookingData } =
+    useBookingStore();
 
   const handleCheckout = () => {
     const bookingDetails = {
@@ -18,7 +22,13 @@ const Checkout = () => {
       time: formatTime(time),
     };
 
-    addBooking(bookingDetails);
+    addBooking(bookingDetails, {
+      onSuccess: () => {
+        toast.success("Ticket Booked Successfully!!");
+        navigate("/payment-success");
+        clearBookingData();
+      },
+    });
   };
   return (
     <main className="h-screen relative overflow-hidden flex items-center justify-center">
@@ -55,7 +65,12 @@ const Checkout = () => {
 
           <div>
             <button className="btn w-full" onClick={handleCheckout}>
-              Pay
+              <div className="flex items-center justify-center gap-2">
+                <span>Pay</span>
+                {isPending && (
+                  <div className="size-8 border-t-2 border-r-2 border-white rounded-full anims"></div>
+                )}
+              </div>
             </button>
           </div>
         </div>
