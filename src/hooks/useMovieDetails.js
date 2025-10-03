@@ -14,8 +14,6 @@ const useMovieDetails = (movieId) => {
         const [_key, movieId] = queryKey;
         const res = await axiosPublic.get(`/movies/movie/${movieId}`);
 
-        console.log(movieId);
-
         return res.data?.data;
       } catch (error) {
         console.log(`ERROR While Fetching Movie Details: ${error}`);

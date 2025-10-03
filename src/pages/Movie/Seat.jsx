@@ -50,7 +50,7 @@ const Seat = () => {
     if (!selectedSeat.length)
       return toast("Select Seat first!!", { icon: "⚠️" });
     setBookedSeat(selectedSeat);
-    navigate("/checkout");
+    navigate("/booking-details");
   };
 
   if (bookedSeatLoading) return <Spinner />;
@@ -126,7 +126,10 @@ const Seat = () => {
                 TOTAL
               </h4>
               <p className="font-bold text-[clamp(1.3rem,3vw,2rem)] text-white">
-                $ {price}
+                ${" "}
+                {price * selectedSeat.length
+                  ? price * selectedSeat.length
+                  : price}
               </p>
             </div>
             {selectedSeat.length > 0 && (

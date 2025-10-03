@@ -158,8 +158,6 @@ const Showtime = () => {
     setSelectedTime(currTime);
   };
 
-  console.log(movie);
-
   const handleProceed = () => {
     if (!selectedTheater || !selectedDate || !selectedTime || !selectedPrice) {
       toast("Select Theater, Date and Time", { icon: "⚠️" });

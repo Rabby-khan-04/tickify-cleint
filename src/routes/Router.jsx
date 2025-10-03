@@ -54,10 +54,6 @@ const router = createBrowserRouter([
         element: <Bookings />,
       },
       {
-        path: "booking/:id",
-        element: <BookingDetails />,
-      },
-      {
         path: "favorite",
         element: <Favorite />,
       },
@@ -83,6 +79,10 @@ const router = createBrowserRouter([
   {
     path: "checkout",
     element: <Checkout />,
+  },
+  {
+    path: "booking-details",
+    element: <BookingDetails />,
   },
   {
     path: "seat",
