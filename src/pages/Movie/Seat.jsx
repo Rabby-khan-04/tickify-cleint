@@ -25,7 +25,12 @@ const Seat = () => {
     setBookedSeat,
   } = useBookingStore();
 
-  const bookingInfo = { theaterId: theater, date, time: formatTime(time) };
+  const bookingInfo = {
+    theaterId: theater,
+    date,
+    time: new Date(time).getTime(),
+  };
+  console.log(bookingInfo, showId);
   const { bookedSeat, bookedSeatLoading } = useBookedSeats(showId, bookingInfo);
 
   const rowGroup = [

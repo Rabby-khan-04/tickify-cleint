@@ -17,6 +17,8 @@ const useBookedSeats = (showId, info) => {
           info
         );
 
+        console.log(res);
+
         return res.data?.data;
       } catch (error) {
         console.log(`ERROR While Fetching Booked Seat: ${error}`);
