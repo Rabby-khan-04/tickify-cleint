@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import BlurCircle from "../../components/shared/BlurCircle/BlurlCircle";
 import Spinner from "../../components/shared/Loader/Spinner";
 import SectionTitle from "../../components/shared/SectionTitle/SectionTitle";
@@ -7,19 +6,14 @@ import useMovieDetails from "../../hooks/useMovieDetails";
 import { farmateFullDate, formatTime } from "../../utils/dateFormater";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router";
+import useAddBooking from "../../hooks/useAddBooking";
 
 const BookingDetails = () => {
   const navigate = useNavigate();
-  const { theater, price, date, time, showId, movie, seats } =
+  const { addBooking, isPending } = useAddBooking();
+  const { theater, price, date, time, showId, movie, seats, clearBookingData } =
     useBookingStore();
   const { movieDetails, movieDetailsLoading } = useMovieDetails(movie);
-
-  useEffect(() => {
-    if (!theater || !showId || !movie) {
-      toast.error("Select a show!!");
-      navigate("/movies");
-    }
-  }, [theater, showId, movie, navigate]);
 
   if (movieDetailsLoading) return <Spinner />;
 
@@ -27,6 +21,26 @@ const BookingDetails = () => {
   const serviceCharge = price * 0.06;
   const totalSearviceCharge = serviceCharge * seats.length;
   const totalBill = billAmount + totalSearviceCharge;
+
+  const handleCheckout = () => {
+    const bookingDetails = {
+      showId,
+      movieId: movie,
+      seats,
+      theaterId: theater,
+      date,
+      time: formatTime(time),
+    };
+
+    addBooking(bookingDetails, {
+      onSuccess: () => {
+        toast.success("Ticket Booked Successfully!!");
+        navigate("/payment-success");
+        clearBookingData();
+      },
+    });
+  };
+
   return (
     <main className="h-screen relative overflow-hidden flex items-center justify-center">
       <BlurCircle top="-100px" right="-100px" />
@@ -95,9 +109,14 @@ const BookingDetails = () => {
               <p className="text-xs text-white/80">
                 *Purchased ticket cannot be canceled
               </p>
-              <Link to="/checkout" className="btn w-full">
-                Checkout Ticket
-              </Link>
+              <button className="btn w-full" onClick={handleCheckout}>
+                <div className="flex items-center justify-center gap-2">
+                  <span>Checkout Ticket</span>
+                  {isPending && (
+                    <div className="size-8 border-t-2 border-r-2 border-white rounded-full anims"></div>
+                  )}
+                </div>
+              </button>
             </div>
           </div>
         ) : (

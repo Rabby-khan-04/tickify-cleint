@@ -14,7 +14,6 @@ import Users from "../pages/Admin/Users";
 import Profile from "../pages/User/Profile";
 import Bookings from "../pages/Booking/Bookings";
 import BookingDetails from "../pages/Booking/BookingDetails";
-import Checkout from "../pages/Booking/Checkout";
 import Movies from "../pages/Movie/Movies";
 import Seat from "../pages/Movie/Seat";
 import PaymentSuccess from "../pages/Booking/PaymentSuccess";
@@ -75,10 +74,6 @@ const router = createBrowserRouter([
   {
     path: "login",
     element: <Login />,
-  },
-  {
-    path: "checkout",
-    element: <Checkout />,
   },
   {
     path: "booking-details",
