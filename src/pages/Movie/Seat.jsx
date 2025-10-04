@@ -7,7 +7,6 @@ import { useState } from "react";
 import SeatLayout from "../../components/Movies/SeatLayout";
 import { FaTimes } from "react-icons/fa";
 import useBookedSeats from "../../hooks/useBookedSeats";
-import { formatTime } from "../../utils/dateFormater";
 import Spinner from "../../components/shared/Loader/Spinner";
 import toast from "react-hot-toast";
 
