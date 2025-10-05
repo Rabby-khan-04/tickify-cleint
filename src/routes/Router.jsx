@@ -26,6 +26,7 @@ import AdminRoute from "./AdminRoute";
 import Theaters from "../pages/Admin/Theaters";
 import Showtime from "../pages/Booking/Showtime";
 import Movie from "../pages/Movie/Movie";
+import Spinner from "../components/shared/Loader/Spinner";
 
 const router = createBrowserRouter([
   {
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
   {
     path: "register",
     element: <Register />,
+  },
+  {
+    path: "loading",
+    element: <Spinner />,
   },
   {
     path: "login",
