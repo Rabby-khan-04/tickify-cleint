@@ -29,7 +29,6 @@ const Seat = () => {
     date,
     time: new Date(time).getTime(),
   };
-  console.log(bookingInfo, showId);
   const { bookedSeat, bookedSeatLoading } = useBookedSeats(showId, bookingInfo);
 
   const rowGroup = [

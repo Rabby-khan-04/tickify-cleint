@@ -4,9 +4,8 @@ import SectionTitle from "../../components/shared/SectionTitle/SectionTitle";
 import useBookingStore from "../../hooks/useBookingStore";
 import useMovieDetails from "../../hooks/useMovieDetails";
 import { farmateFullDate, formatTime } from "../../utils/dateFormater";
-import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router";
 import useAddBooking from "../../hooks/useAddBooking";
+import { useNavigate } from "react-router";
 
 const BookingDetails = () => {
   const navigate = useNavigate();
@@ -33,9 +32,9 @@ const BookingDetails = () => {
     };
 
     addBooking(bookingDetails, {
-      onSuccess: () => {
-        toast.success("Ticket Booked Successfully!!");
-        navigate("/payment-success");
+      onSuccess: (data) => {
+        window.location.href = data?.data?.data.paymentLink;
+        navigate("/loading/success");
         clearBookingData();
       },
     });

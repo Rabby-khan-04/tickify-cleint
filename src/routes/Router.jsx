@@ -20,13 +20,12 @@ import PaymentSuccess from "../pages/Booking/PaymentSuccess";
 import TicketDetails from "../pages/Booking/TicketDetails";
 import Favorite from "../pages/User/Favorite";
 import Root from "../layout/Root";
-import Loader from "../components/shared/Loader/Loader";
 import PrivateRouter from "./PrivateRouter";
 import AdminRoute from "./AdminRoute";
 import Theaters from "../pages/Admin/Theaters";
 import Showtime from "../pages/Booking/Showtime";
 import Movie from "../pages/Movie/Movie";
-import Spinner from "../components/shared/Loader/Spinner";
+import PaymentLoading from "../components/shared/Loader/PaymentLoading";
 
 const router = createBrowserRouter([
   {
@@ -73,8 +72,8 @@ const router = createBrowserRouter([
     element: <Register />,
   },
   {
-    path: "loading",
-    element: <Spinner />,
+    path: "loading/:nextUrl",
+    element: <PaymentLoading />,
   },
   {
     path: "login",
@@ -89,7 +88,7 @@ const router = createBrowserRouter([
     element: <Seat />,
   },
   {
-    path: "payment-success",
+    path: "success",
     element: <PaymentSuccess />,
   },
 
