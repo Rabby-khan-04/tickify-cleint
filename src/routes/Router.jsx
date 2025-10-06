@@ -26,6 +26,7 @@ import Theaters from "../pages/Admin/Theaters";
 import Showtime from "../pages/Booking/Showtime";
 import Movie from "../pages/Movie/Movie";
 import PaymentLoading from "../components/shared/Loader/PaymentLoading";
+import axiosSecure from "../utils/axiosSecure";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,7 @@ const router = createBrowserRouter([
       {
         path: "bookings",
         element: <Bookings />,
+        loader: () => axiosSecure.get("/bookings/my-booking-count"),
       },
       {
         path: "favorite",
