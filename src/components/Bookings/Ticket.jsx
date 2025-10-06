@@ -8,7 +8,7 @@ const Ticket = ({ booking }) => {
     window.location.href = paymentLink;
   };
   return (
-    <div className="rounded-[20px] border border-white max-w-96 w-full p-5 text-white space-y-10">
+    <div className="rounded-[20px] border border-primary  bg-primary/10 max-w-96 w-full p-5 text-white space-y-10">
       <div className="space-y-1">
         <h4 className="text-[clamp(1rem,1.8vw,1.2rem)] font-light text-white/80">
           Date
