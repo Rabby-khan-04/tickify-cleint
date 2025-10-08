@@ -12,7 +12,11 @@ const Bookings = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
   const [itemPerPage, setItemPerPage] = useState(8);
-  const { bookings, bookingsLoading } = useBookings(currentPage, itemPerPage);
+  const { bookings, bookingsLoading } = useBookings(
+    currentPage,
+    itemPerPage,
+    totalPage
+  );
   const { data } = useLoaderData();
 
   useEffect(() => {
@@ -26,7 +30,7 @@ const Bookings = () => {
   return (
     <main className="py-20 lg:py-32 relative overflow-hidden">
       <BlurCircle top="-100px" right="-100px" />
-      <section>
+      <section className="min-h-screen">
         <div className="container-fluid">
           <SectionTitle title="Ticket Detail" />
 
