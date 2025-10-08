@@ -112,7 +112,7 @@ const BookingDetails = () => {
                 <div className="flex items-center justify-center gap-2">
                   <span>Checkout Ticket</span>
                   {isPending && (
-                    <div className="size-8 border-t-2 border-r-2 border-white rounded-full anims"></div>
+                    <div className="size-8 border-t-2 border-r-2 border-white rounded-full animate-spin"></div>
                   )}
                 </div>
               </button>

@@ -12,7 +12,7 @@ const Pagination = ({ currentPage, setCurrentPage, totalPage }) => {
       >
         <FaChevronLeft />
       </button>
-      {[...Array(totalPage).keys()].map((item) => (
+      {Array.from({ length: totalPage }, (_, i) => i).map((item) => (
         <button
           onClick={() => setCurrentPage(item)}
           className={`btn-pagination ${

@@ -38,5 +38,6 @@ export const farmateFullDate = (date) => {
     day: "2-digit",
     month: "long",
     year: "numeric",
+    timeZone: "Asia/Dhaka",
   });
 };
