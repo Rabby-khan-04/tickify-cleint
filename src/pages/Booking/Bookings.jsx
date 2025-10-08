@@ -5,7 +5,8 @@ import Spinner from "../../components/shared/Loader/Spinner";
 import SectionTitle from "../../components/shared/SectionTitle/SectionTitle";
 import useBookings from "../../hooks/useBookings";
 import { useEffect, useState } from "react";
-import { FaChevronLeft, FaAngleRight } from "react-icons/fa6";
+
+import Pagination from "../../components/shared/Pagination";
 
 const Bookings = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -19,8 +20,6 @@ const Bookings = () => {
     const total_page = Math.ceil(total_item / itemPerPage);
     setTotalPage(total_page);
   }, [data.data, itemPerPage]);
-
-  console.log({ totalPage, currentPage });
 
   if (bookingsLoading) return <Spinner />;
 
@@ -39,43 +38,11 @@ const Bookings = () => {
                 ))}
               </div>
 
-              <div className="flex items-stretch justify-center mt-10 gap-4">
-                <button
-                  className={`btn-pagination bg-primary/10 text-white ${
-                    currentPage === 0 && "pointer-events-none"
-                  }`}
-                  onClick={() =>
-                    setCurrentPage((prev) => (prev === 0 ? 0 : prev - 1))
-                  }
-                >
-                  <FaChevronLeft />
-                </button>
-                {[...Array(totalPage).keys()].map((item) => (
-                  <button
-                    onClick={() => setCurrentPage(item)}
-                    className={`btn-pagination ${
-                      currentPage === item
-                        ? "bg-white text-dark"
-                        : "bg-primary/10 text-white"
-                    }`}
-                    key={item}
-                  >
-                    {item + 1}
-                  </button>
-                ))}
-                <button
-                  onClick={() =>
-                    setCurrentPage((prev) =>
-                      prev === totalPage - 1 ? totalPage - 1 : prev + 1
-                    )
-                  }
-                  className={`btn-pagination bg-primary/10 text-white ${
-                    currentPage === totalPage - 1 && "pointer-events-none"
-                  }`}
-                >
-                  <FaAngleRight />
-                </button>
-              </div>
+              <Pagination
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                totalPage={totalPage}
+              />
             </>
           )}
         </div>
