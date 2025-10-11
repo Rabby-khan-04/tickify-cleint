@@ -2,8 +2,8 @@ import axios from "axios";
 import axiosPublic from "./axiosPublic";
 
 const axiosSecure = axios.create({
-  baseURL: "https://tickify-server.vercel.app/api/v1",
-  // baseURL: "http://localhost:3000/api/v1",
+  // baseURL: "https://tickify-server.vercel.app/api/v1",
+  baseURL: "http://localhost:3000/api/v1",
   withCredentials: true,
 });
 

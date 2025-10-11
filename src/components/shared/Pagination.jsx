@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { FaChevronLeft, FaAngleRight } from "react-icons/fa6";
 
 const Pagination = ({ currentPage, setCurrentPage, totalPage }) => {
+  console.log(totalPage);
   return (
     <div className="flex items-stretch justify-center mt-10 gap-4">
       <button

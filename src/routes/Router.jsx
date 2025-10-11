@@ -152,6 +152,7 @@ const router = createBrowserRouter([
             <ManageMovies />
           </AdminRoute>
         ),
+        loader: () => axiosSecure.get("/movies/movies-count"),
       },
       {
         path: "admin/shows",
